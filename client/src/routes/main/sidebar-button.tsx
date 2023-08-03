@@ -5,7 +5,10 @@ import { Sidebar } from "./sidebar";
 export function SidebarButton() {
   return (
     <Popover>
-      <Popover.Button className="grid h-12 w-12 place-items-center rounded-full duration-150 hover:bg-gray-200">
+      <Popover.Button
+        className="grid h-12 w-12 place-items-center rounded-full duration-150 hover:bg-gray-200"
+        title="Menu"
+      >
         <Bars3Icon className="h-6 w-6" />
       </Popover.Button>
       <Transition
