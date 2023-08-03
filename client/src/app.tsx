@@ -7,6 +7,7 @@ export function App() {
       <Routes>
         <Route element={<MainRoute />}>
           <Route element={<div />} index />
+          <Route element={<div />} path="settings" />
         </Route>
       </Routes>
     </BrowserRouter>
