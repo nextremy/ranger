@@ -4,7 +4,7 @@ import { TopBar } from "./top-bar";
 
 export function MainRoute() {
   return (
-    <div className="mx-auto flex h-screen md:max-w-7xl">
+    <div className="mx-auto flex h-screen md:max-w-5xl">
       <div className="hidden w-full max-w-xs md:block">
         <Sidebar />
       </div>
