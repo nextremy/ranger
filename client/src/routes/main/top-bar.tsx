@@ -9,7 +9,7 @@ export function TopBar() {
       <div className="md:hidden">
         <SidebarButton />
       </div>
-      <h1 className="text-lg font-medium">
+      <h1 className="text-lg font-bold">
         {pathname === "/" ? "Home" : ""}
         {pathname.startsWith("/posts") ? "Post" : ""}
         {pathname.startsWith("/@") ? "Profile" : ""}
