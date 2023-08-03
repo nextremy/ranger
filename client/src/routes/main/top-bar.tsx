@@ -13,6 +13,7 @@ export function TopBar() {
         {pathname === "/" ? "Home" : ""}
         {pathname.startsWith("/posts") ? "Post" : ""}
         {pathname.startsWith("/@") ? "Profile" : ""}
+        {pathname === "/settings" ? "Settings" : ""}
       </h1>
     </div>
   );
