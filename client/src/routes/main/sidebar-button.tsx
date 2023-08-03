@@ -1,12 +1,8 @@
 import { Popover, Transition } from "@headlessui/react";
-import {
-  Bars3Icon,
-  Cog6ToothIcon,
-  HomeIcon,
-} from "@heroicons/react/24/outline";
-import { Link } from "react-router-dom";
+import { Bars3Icon } from "@heroicons/react/24/outline";
+import { Sidebar } from "./sidebar";
 
-export function DrawerButton() {
+export function SidebarButton() {
   return (
     <Popover>
       <Popover.Button className="grid h-12 w-12 place-items-center rounded-full duration-150 hover:bg-gray-200">
@@ -31,21 +27,8 @@ export function DrawerButton() {
           leaveFrom="translate-x-0"
           leaveTo="-translate-x-full"
         >
-          <Popover.Panel className="h-screen w-full max-w-xs bg-gray-100 p-2">
-            <Link
-              className="flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200 "
-              to="/"
-            >
-              <HomeIcon className="h-6 w-6" />
-              Home
-            </Link>
-            <Link
-              className="flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200"
-              to="/settings"
-            >
-              <Cog6ToothIcon className="h-6 w-6" />
-              Settings
-            </Link>
+          <Popover.Panel className="h-screen w-full max-w-xs bg-gray-100">
+            <Sidebar />
           </Popover.Panel>
         </Transition>
       </div>
