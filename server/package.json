@@ -1,0 +1,30 @@
+{
+  "name": "ranger-server",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node dist/main.js",
+    "dev": "tsc-watch --onSuccess \"node dist/main.js\"",
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@prisma/client": "5.1.1",
+    "@trpc/server": "10.37.1",
+    "argon2": "0.31.0",
+    "cors": "2.8.5",
+    "jsonwebtoken": "9.0.1",
+    "zod": "3.21.4"
+  },
+  "devDependencies": {
+    "@types/cors": "2.8.13",
+    "@types/jsonwebtoken": "9.0.2",
+    "@types/node": "20.4.6",
+    "@typescript-eslint/eslint-plugin": "6.2.1",
+    "@typescript-eslint/parser": "6.2.1",
+    "eslint": "8.46.0",
+    "prettier": "3.0.1",
+    "prisma": "5.1.1",
+    "tsc-watch": "6.0.4",
+    "typescript": "5.1.6"
+  }
+}
