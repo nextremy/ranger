@@ -17,7 +17,7 @@ export const userRouter = router({
         password: z.string().min(8).max(256),
       })
     )
-    .query(async ({ input, ctx }) => {
+    .mutation(async ({ input, ctx }) => {
       const usernameTaken = Boolean(
         await ctx.db.user.findUnique({ where: { username: input.username } })
       );
