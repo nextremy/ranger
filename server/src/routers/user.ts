@@ -6,6 +6,30 @@ import { env } from "../env";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const userRouter = router({
+  get: publicProcedure
+    .input(z.object({ userId: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const user = await ctx.db.user.findUnique({
+        select: {
+          id: true,
+          username: true,
+          displayName: true,
+          _count: { select: { followers: true, following: true } },
+        },
+        where: { id: input.userId },
+      });
+      if (!user) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      return {
+        id: user.id,
+        username: user.username,
+        displayName: user.displayName,
+        followerCount: user._count.followers,
+        followingCount: user._count.following,
+      };
+    }),
   create: publicProcedure
     .input(
       z.object({
@@ -15,6 +39,7 @@ export const userRouter = router({
           .max(12)
           .regex(/^[a-z0-9_]*/),
         password: z.string().min(8).max(256),
+        displayName: z.string().min(1).max(16),
       })
     )
     .mutation(async ({ input, ctx }) => {
