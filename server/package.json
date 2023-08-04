@@ -5,7 +5,8 @@
   "scripts": {
     "start": "node dist/main.js",
     "dev": "tsc-watch --onSuccess \"node dist/main.js\"",
-    "build": "tsc"
+    "build": "tsc",
+    "db.sync": "npx prisma db push --schema src/prisma/schema.prisma && npx prisma generate --schema src/prisma/schema.prisma"
   },
   "dependencies": {
     "@prisma/client": "5.1.1",
