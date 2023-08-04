@@ -5,11 +5,13 @@ import { trpc } from "../../trpc";
 
 type Inputs = {
   username: string;
+  displayName: string;
   password: string;
 };
 
 export function RegisterRoute() {
   const usernameInputId = useId();
+  const displayNameInputId = useId();
   const passwordInputId = useId();
   const navigate = useNavigate();
   const { mutate: createUser } = trpc.user.create.useMutation({
@@ -70,6 +72,29 @@ export function RegisterRoute() {
       {errors.username && (
         <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
           {errors.username.message}
+        </p>
+      )}
+      <label
+        className="mt-4 text-sm font-semibold tracking-wide"
+        htmlFor={displayNameInputId}
+      >
+        Display name
+      </label>
+      <input
+        className="mt-1 h-12 rounded-md bg-gray-300 px-4"
+        id={displayNameInputId}
+        type="text"
+        {...register("displayName", {
+          required: "This field is required.",
+          maxLength: {
+            value: 16,
+            message: "Your display name must contain at most 16 characters.",
+          },
+        })}
+      />
+      {errors.displayName && (
+        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
+          {errors.displayName.message}
         </p>
       )}
       <label

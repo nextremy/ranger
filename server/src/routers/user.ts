@@ -27,7 +27,11 @@ export const userRouter = router({
 
       const passwordHash = await argon2.hash(input.password);
       await ctx.db.user.create({
-        data: { username: input.username, passwordHash },
+        data: {
+          username: input.username,
+          passwordHash,
+          displayName: input.displayName,
+        },
       });
     }),
   login: publicProcedure
