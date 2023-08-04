@@ -60,15 +60,13 @@ export function LoginRoute() {
         type="text"
         {...register("username", { required: "This field is required." })}
       />
-      <div className="h-8 pt-1">
-        {errors.username && (
-          <p className="text-sm font-medium tracking-wide text-red-700">
-            {errors.username.message}
-          </p>
-        )}
-      </div>
+      {errors.username && (
+        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
+          {errors.username.message}
+        </p>
+      )}
       <label
-        className="text-sm font-semibold tracking-wide"
+        className="mt-4 text-sm font-semibold tracking-wide"
         htmlFor={passwordInputId}
       >
         Password
@@ -79,26 +77,22 @@ export function LoginRoute() {
         type="password"
         {...register("password", { required: "This field is required." })}
       />
-      <div className="h-10 pt-1">
-        {errors.password && (
-          <p className="text-sm font-medium tracking-wide text-red-700">
-            {errors.password.message}
-          </p>
-        )}
-      </div>
+      {errors.password && (
+        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
+          {errors.password.message}
+        </p>
+      )}
       <button
-        className="h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-150 hover:bg-green-600"
+        className="mt-8 h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-150 hover:bg-green-600"
         type="submit"
       >
         Log in
       </button>
-      <div className="h-8 pt-4">
-        {errors.root && (
-          <p className="text-center text-sm font-medium tracking-wide text-red-700">
-            {errors.root.message}
-          </p>
-        )}
-      </div>
+      {errors.root && (
+        <p className="mt-4 text-center text-sm font-medium tracking-wide text-red-700">
+          {errors.root.message}
+        </p>
+      )}
       <p className="mt-4 text-center">
         Don{"'"}t have an account?{" "}
         <Link className="text-blue-700" to="/register">
