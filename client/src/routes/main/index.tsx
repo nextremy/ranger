@@ -1,8 +1,14 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
+import { useSession } from "../../hooks/use-session";
 import { Sidebar } from "./sidebar";
 import { TopBar } from "./top-bar";
 
 export function MainRoute() {
+  const session = useSession();
+
+  if (!session) {
+    return <Navigate to="/login" />;
+  }
   return (
     <div className="mx-auto flex h-screen md:max-w-5xl">
       <div className="hidden w-full max-w-xs md:block">
