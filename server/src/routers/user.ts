@@ -6,6 +6,21 @@ import { env } from "../env";
 import { publicProcedure, router } from "../trpc";
 
 export const userRouter = router({
+  create: publicProcedure
+    .input(z.object({ username: z.string(), password: z.string() }))
+    .query(async ({ input, ctx }) => {
+      const usernameTaken = Boolean(
+        await ctx.db.user.findUnique({ where: { username: input.username } })
+      );
+      if (usernameTaken) {
+        throw new TRPCError({ code: "CONFLICT" });
+      }
+
+      const passwordHash = await argon2.hash(input.password);
+      await ctx.db.user.create({
+        data: { username: input.username, passwordHash },
+      });
+    }),
   login: publicProcedure
     .input(z.object({ username: z.string(), password: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -26,20 +41,5 @@ export const userRouter = router({
 
       const token = jwt.sign({ userId: user.id }, env.JWT_SECRET);
       return token;
-    }),
-  create: publicProcedure
-    .input(z.object({ username: z.string(), password: z.string() }))
-    .query(async ({ input, ctx }) => {
-      const usernameTaken = Boolean(
-        await ctx.db.user.findUnique({ where: { username: input.username } })
-      );
-      if (usernameTaken) {
-        throw new TRPCError({ code: "CONFLICT" });
-      }
-
-      const passwordHash = await argon2.hash(input.password);
-      await ctx.db.user.create({
-        data: { username: input.username, passwordHash },
-      });
     }),
 });
