@@ -37,7 +37,7 @@ export const userRouter = router({
         where: { username: input.username },
       });
       if (!user) {
-        throw new TRPCError({ code: "NOT_FOUND" });
+        throw new TRPCError({ code: "UNAUTHORIZED" });
       }
 
       const passwordsMatch = await argon2.verify(
