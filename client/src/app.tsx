@@ -9,7 +9,7 @@ const trpcClient = trpc.createClient({
   links: [
     httpBatchLink({
       url: "http://localhost:4000",
-      headers: async () => {
+      headers: () => {
         const token = localStorage.getItem("token");
         if (token === null) return {};
         return { Authorization: `Bearer ${token}` };
