@@ -3,7 +3,7 @@ import argon2 from "argon2";
 import jwt from "jsonwebtoken";
 import z from "zod";
 import { env } from "../env";
-import { publicProcedure, router } from "../trpc";
+import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const userRouter = router({
   create: publicProcedure
@@ -50,5 +50,21 @@ export const userRouter = router({
 
       const token = jwt.sign({ userId: user.id }, env.JWT_SECRET);
       return { token, userId: user.id };
+    }),
+  follow: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.user.update({
+        data: { following: { connect: { id: input.userId } } },
+        where: { id: ctx.session.userId },
+      });
+    }),
+  unfollow: protectedProcedure
+    .input(z.object({ userId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.user.update({
+        data: { following: { disconnect: { id: input.userId } } },
+        where: { id: ctx.session.userId },
+      });
     }),
 });
