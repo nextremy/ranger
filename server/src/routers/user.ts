@@ -49,6 +49,6 @@ export const userRouter = router({
       }
 
       const token = jwt.sign({ userId: user.id }, env.JWT_SECRET);
-      return token;
+      return { token, userId: user.id };
     }),
 });
