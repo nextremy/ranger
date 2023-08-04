@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthRoute } from "./routes/auth";
 import { LoginRoute } from "./routes/login";
 import { MainRoute } from "./routes/main";
+import { RegisterRoute } from "./routes/register";
 import { trpc } from "./trpc";
 
 const queryClient = new QueryClient();
@@ -36,7 +37,7 @@ function Router() {
       <Routes>
         <Route element={<AuthRoute />}>
           <Route element={<LoginRoute />} path="login" />
-          <Route element={<div />} path="register" />
+          <Route element={<RegisterRoute />} path="register" />
         </Route>
         <Route element={<MainRoute />}>
           <Route element={<div />} index />
