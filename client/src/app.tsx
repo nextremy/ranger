@@ -1,6 +1,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AuthRoute } from "./routes/auth";
+import { LoginRoute } from "./routes/login";
 import { MainRoute } from "./routes/main";
 import { trpc } from "./trpc";
 
@@ -32,6 +34,10 @@ function Router() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route element={<AuthRoute />}>
+          <Route element={<LoginRoute />} path="login" />
+          <Route element={<div />} path="register" />
+        </Route>
         <Route element={<MainRoute />}>
           <Route element={<div />} index />
           <Route element={<div />} path="settings" />
