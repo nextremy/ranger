@@ -2,8 +2,8 @@ import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
 import { IncomingMessage } from "http";
 import jwt from "jsonwebtoken";
 import z from "zod";
-import { prisma } from "../prisma/client";
 import { env } from "./env";
+import { prisma } from "./prisma/client";
 
 export function createContext({ req }: CreateHTTPContextOptions) {
   const session = getSession(req);
