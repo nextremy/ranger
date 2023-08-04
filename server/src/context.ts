@@ -1,4 +1,3 @@
-import { inferAsyncReturnType } from "@trpc/server";
 import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
 import { IncomingMessage } from "http";
 import jwt from "jsonwebtoken";
@@ -10,8 +9,6 @@ export function createContext({ req }: CreateHTTPContextOptions) {
   const session = getSession(req);
   return { session, db: prisma };
 }
-
-export type Context = inferAsyncReturnType<typeof createContext>;
 
 function getSession(req: IncomingMessage) {
   const token = req.headers.authorization?.split(" ")[1];
