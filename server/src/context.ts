@@ -3,11 +3,12 @@ import { CreateHTTPContextOptions } from "@trpc/server/adapters/standalone";
 import { IncomingMessage } from "http";
 import jwt from "jsonwebtoken";
 import z from "zod";
+import { prisma } from "../prisma/client";
 import { env } from "./env";
 
 export function createContext({ req }: CreateHTTPContextOptions) {
   const session = getSession(req);
-  return { session };
+  return { session, db: prisma };
 }
 
 export type Context = inferAsyncReturnType<typeof createContext>;
