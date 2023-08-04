@@ -22,7 +22,16 @@ export const userRouter = router({
       });
     }),
   login: publicProcedure
-    .input(z.object({ username: z.string(), password: z.string() }))
+    .input(
+      z.object({
+        username: z
+          .string()
+          .min(1)
+          .max(12)
+          .regex(/^[a-z0-9_]*/),
+        password: z.string().min(8).max(256),
+      })
+    )
     .mutation(async ({ input, ctx }) => {
       const user = await ctx.db.user.findUnique({
         where: { username: input.username },
