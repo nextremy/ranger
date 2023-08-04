@@ -1,5 +1,6 @@
 .env
 *.db
+*.db-journal
 dist
 dist-ssr
 node_modules
