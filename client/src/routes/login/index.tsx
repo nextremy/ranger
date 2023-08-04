@@ -101,7 +101,7 @@ export function LoginRoute() {
       </div>
       <p className="mt-4 text-center">
         Don{"'"}t have an account?{" "}
-        <Link className="text-blue-700" to="register">
+        <Link className="text-blue-700" to="/register">
           Register here.
         </Link>
       </p>
