@@ -78,7 +78,7 @@ export const userRouter = router({
       }
 
       const token = jwt.sign({ userId: user.id }, env.JWT_SECRET);
-      return { token, userId: user.id };
+      return { token, userId: user.id, username: user.username };
     }),
   follow: protectedProcedure
     .input(z.object({ userId: z.string() }))

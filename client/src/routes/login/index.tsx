@@ -16,6 +16,7 @@ export function LoginRoute() {
     onSuccess: (data) => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("userId", data.userId);
+      localStorage.setItem("username", data.username);
       navigate("/");
     },
     onError: (error) => {
