@@ -41,6 +41,7 @@ function Router() {
         </Route>
         <Route element={<MainRoute />}>
           <Route element={<div />} index />
+          <Route element={<div />} path="users/:userId" />
           <Route element={<div />} path="settings" />
         </Route>
       </Routes>
