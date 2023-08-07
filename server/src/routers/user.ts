@@ -7,7 +7,7 @@ import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const userRouter = router({
   get: publicProcedure
-    .input(z.object({ userId: z.string() }))
+    .input(z.object({ username: z.string() }))
     .query(async ({ input, ctx }) => {
       const user = await ctx.db.user.findUnique({
         select: {
@@ -16,7 +16,7 @@ export const userRouter = router({
           displayName: true,
           _count: { select: { followers: true, following: true } },
         },
-        where: { id: input.userId },
+        where: { username: input.username },
       });
       if (!user) {
         throw new TRPCError({ code: "NOT_FOUND" });

@@ -4,7 +4,7 @@ import { trpc } from "../../trpc";
 export function Profile() {
   const session = useSession();
   const { data: user } = trpc.user.get.useQuery(
-    { userId: session?.userId ?? "" },
+    { username: session?.username ?? "" },
     { enabled: session !== null },
   );
 
