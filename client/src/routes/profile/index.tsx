@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { trpc } from "../../trpc";
+import { FollowButton } from "./follow-button";
 
 export function ProfileRoute() {
   const params = useParams();
@@ -8,8 +9,15 @@ export function ProfileRoute() {
   if (!user) return null;
   return (
     <div className="p-4">
-      <p className="text-lg font-medium leading-tight">{user.displayName}</p>
-      <p className="text-gray-600">@{user.username}</p>
+      <div className="flex justify-between">
+        <div>
+          <p className="text-lg font-medium leading-tight">
+            {user.displayName}
+          </p>
+          <p className="text-gray-600">@{user.username}</p>
+        </div>
+        <FollowButton />
+      </div>
     </div>
   );
 }
