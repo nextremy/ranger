@@ -1,5 +1,5 @@
 import { Tab } from "@headlessui/react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { trpc } from "../../trpc";
 import { EditProfileButton } from "./edit-profile-button";
 import { FollowButton } from "./follow-button";
@@ -19,13 +19,24 @@ export function ProfileRoute() {
               {user.displayName}
             </p>
             <div className="flex gap-2">
-              <p className="text-gray-600">@{user.username}</p>
+              <p className="text-gray-700">@{user.username}</p>
               {user.isFollowingUser ? (
                 <p className="rounded-md bg-gray-200 px-2 font-medium">
                   Follows you
                 </p>
               ) : null}
             </div>
+            <div className="mt-4 flex gap-4">
+              <Link to="followers">
+                <span className="font-semibold">{user.followerCount}</span>{" "}
+                <span className="text-gray-700">followers</span>
+              </Link>
+              <Link to="following">
+                <span className="font-semibold">{user.followingCount}</span>{" "}
+                <span className="text-gray-700">following</span>
+              </Link>
+            </div>
+            <p className="mt-4 whitespace-pre">{user.description}</p>
           </div>
           <FollowButton />
           <UnfollowButton />
