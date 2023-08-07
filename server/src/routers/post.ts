@@ -10,7 +10,7 @@ export const postRouter = router({
         select: {
           timestamp: true,
           text: true,
-          author: { select: { id: true, displayName: true } },
+          author: { select: { id: true, username: true, displayName: true } },
           _count: { select: { replies: true, reposts: true, likes: true } },
         },
         where: { id: input.id },
