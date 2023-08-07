@@ -61,7 +61,6 @@ export function ProfileRoute() {
           <Tab.Panel></Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
-      <div></div>
     </>
   );
 }
