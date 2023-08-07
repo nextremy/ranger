@@ -86,6 +86,22 @@ export const userRouter = router({
         },
       });
     }),
+  editProfile: protectedProcedure
+    .input(
+      z.object({
+        displayName: z.string().min(1).max(16),
+        description: z.string().max(300),
+      })
+    )
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.user.update({
+        data: {
+          displayName: input.displayName,
+          description: input.description,
+        },
+        where: { id: ctx.session.userId },
+      });
+    }),
   follow: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(async ({ input, ctx }) => {

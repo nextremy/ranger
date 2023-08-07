@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import { trpc } from "../../trpc";
+import { EditProfileButton } from "./edit-profile-button";
 import { FollowButton } from "./follow-button";
 import { UnfollowButton } from "./unfollow-button";
 
@@ -26,6 +27,7 @@ export function ProfileRoute() {
         </div>
         <FollowButton />
         <UnfollowButton />
+        <EditProfileButton />
       </div>
     </div>
   );
