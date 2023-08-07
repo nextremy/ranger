@@ -12,6 +12,7 @@ model User {
   username     String @unique
   passwordHash String
   displayName  String
+  description  String @default("")
   followers    User[] @relation(name: "Following")
   following    User[] @relation(name: "Following")
 }
