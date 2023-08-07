@@ -35,6 +35,8 @@ export const userRouter = router({
           id: true,
           username: true,
           displayName: true,
+          followers: { where: { id: ctx.session?.userId } },
+          following: { where: { id: ctx.session?.userId } },
           _count: { select: { followers: true, following: true } },
         },
         where: { username: input.username },
@@ -47,6 +49,8 @@ export const userRouter = router({
         id: user.id,
         username: user.username,
         displayName: user.displayName,
+        isFollowedByUser: user.followers.length === 1,
+        isFollowingUser: user.following.length === 1,
         followerCount: user._count.followers,
         followingCount: user._count.following,
       };
