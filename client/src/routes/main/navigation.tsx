@@ -33,11 +33,11 @@ export function Navigation() {
       {session && (
         <Link
           className={`flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200 ${
-            pathname === `/users/${session.username}` ? "font-bold" : ""
+            pathname === `/profiles/${session.username}` ? "font-bold" : ""
           }`}
-          to={`/users/${session.username}`}
+          to={`/profiles/${session.username}`}
         >
-          {pathname === `/users/${session.username}` ? (
+          {pathname === `/profiles/${session.username}` ? (
             <UserIconSolid className="h-6 w-6" />
           ) : (
             <UserIconOutline className="h-6 w-6" />

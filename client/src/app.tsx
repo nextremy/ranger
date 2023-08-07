@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthRoute } from "./routes/auth";
 import { LoginRoute } from "./routes/login";
 import { MainRoute } from "./routes/main";
+import { ProfileRoute } from "./routes/profile";
 import { RegisterRoute } from "./routes/register";
 import { trpc } from "./trpc";
 
@@ -41,7 +42,7 @@ function Router() {
         </Route>
         <Route element={<MainRoute />}>
           <Route element={<div />} index />
-          <Route element={<div />} path="users/:userId" />
+          <Route element={<ProfileRoute />} path="profiles/:username" />
           <Route element={<div />} path="settings" />
         </Route>
       </Routes>
