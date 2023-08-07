@@ -5,7 +5,7 @@ export function TopBar() {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex h-16 items-center gap-2 px-2 md:px-4">
+    <div className="flex h-16 items-center gap-2 border-b border-gray-300 px-2 md:px-4">
       <div className="md:hidden">
         <SidebarButton />
       </div>
