@@ -6,6 +6,27 @@ import { env } from "../env";
 import { protectedProcedure, publicProcedure, router } from "../trpc";
 
 export const userRouter = router({
+  login: publicProcedure
+    .input(z.object({ username: z.string(), password: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const user = await ctx.db.user.findUnique({
+        where: { username: input.username },
+      });
+      if (!user) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      const passwordsMatch = await argon2.verify(
+        user.passwordHash,
+        input.password
+      );
+      if (!passwordsMatch) {
+        throw new TRPCError({ code: "UNAUTHORIZED" });
+      }
+
+      const token = jwt.sign({ userId: user.id }, env.JWT_SECRET);
+      return { token, userId: user.id, username: user.username };
+    }),
   get: publicProcedure
     .input(z.object({ username: z.string() }))
     .query(async ({ input, ctx }) => {
@@ -58,27 +79,6 @@ export const userRouter = router({
           displayName: input.displayName,
         },
       });
-    }),
-  login: publicProcedure
-    .input(z.object({ username: z.string(), password: z.string() }))
-    .mutation(async ({ input, ctx }) => {
-      const user = await ctx.db.user.findUnique({
-        where: { username: input.username },
-      });
-      if (!user) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-      }
-
-      const passwordsMatch = await argon2.verify(
-        user.passwordHash,
-        input.password
-      );
-      if (!passwordsMatch) {
-        throw new TRPCError({ code: "UNAUTHORIZED" });
-      }
-
-      const token = jwt.sign({ userId: user.id }, env.JWT_SECRET);
-      return { token, userId: user.id, username: user.username };
     }),
   follow: protectedProcedure
     .input(z.object({ userId: z.string() }))
