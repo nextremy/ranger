@@ -13,6 +13,23 @@ model User {
   passwordHash String
   displayName  String
   description  String @default("")
-  followers    User[] @relation(name: "Following")
-  following    User[] @relation(name: "Following")
+
+  followers     User[] @relation(name: "Following")
+  following     User[] @relation(name: "Following")
+  posts         Post[] @relation(name: "Posts")
+  repostedPosts Post[] @relation(name: "Reposts")
+  likedPosts    Post[] @relation(name: "Likes")
+}
+
+model Post {
+  id   String @id @default(cuid())
+  text String
+
+  author       User   @relation(name: "Posts", fields: [authorId], references: [id])
+  authorId     String
+  replyingTo   Post   @relation(name: "Replies", fields: [replyingToId], references: [id])
+  replyingToId String
+  replies      Post[] @relation(name: "Replies")
+  reposts      User[] @relation(name: "Reposts")
+  likes        User[] @relation(name: "Likes")
 }
