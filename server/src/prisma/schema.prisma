@@ -14,11 +14,11 @@ model User {
   displayName  String
   description  String @default("")
 
-  followers     User[] @relation(name: "Following")
-  following     User[] @relation(name: "Following")
-  posts         Post[] @relation(name: "Posts")
-  repostedPosts Post[] @relation(name: "Reposts")
-  starredPosts  Post[] @relation(name: "Stars")
+  followers User[]   @relation(name: "Following")
+  following User[]   @relation(name: "Following")
+  posts     Post[]   @relation(name: "Posts")
+  reposts   Repost[]
+  stars     Star[]
 }
 
 model Post {
@@ -26,11 +26,33 @@ model Post {
   timestamp DateTime @default(now())
   text      String
 
-  author       User    @relation(name: "Posts", fields: [authorId], references: [id])
+  author       User     @relation(name: "Posts", fields: [authorId], references: [id])
   authorId     String
-  replyingTo   Post?   @relation(name: "Replies", fields: [replyingToId], references: [id])
+  replyingTo   Post?    @relation(name: "Replies", fields: [replyingToId], references: [id])
   replyingToId String?
-  replies      Post[]  @relation(name: "Replies")
-  reposts      User[]  @relation(name: "Reposts")
-  stars        User[]  @relation(name: "Stars")
+  replies      Post[]   @relation(name: "Replies")
+  reposts      Repost[]
+  stars        Star[]
+}
+
+model Repost {
+  timestamp DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  @@id([userId, postId])
+}
+
+model Star {
+  timestamp DateTime @default(now())
+
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  postId String
+
+  @@id([userId, postId])
 }
