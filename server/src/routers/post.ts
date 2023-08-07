@@ -8,6 +8,7 @@ export const postRouter = router({
     .query(async ({ input, ctx }) => {
       const post = await ctx.db.post.findUnique({
         select: {
+          id: true,
           timestamp: true,
           text: true,
           author: { select: { id: true, username: true, displayName: true } },
@@ -28,6 +29,7 @@ export const postRouter = router({
       }
 
       return {
+        id: post.id,
         timestamp: post.timestamp,
         text: post.text,
         author: post.author,
