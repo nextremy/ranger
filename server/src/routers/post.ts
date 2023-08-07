@@ -29,10 +29,19 @@ export const postRouter = router({
       };
     }),
   create: protectedProcedure
-    .input(z.object({ text: z.string().min(1).min(300) }))
+    .input(
+      z.object({
+        text: z.string().min(1).min(300),
+        replyingToPostId: z.optional(z.string()),
+      })
+    )
     .mutation(async ({ input, ctx }) => {
       await ctx.db.post.create({
-        data: { text: input.text, authorId: ctx.session.userId },
+        data: {
+          text: input.text,
+          authorId: ctx.session.userId,
+          replyingToId: input.replyingToPostId,
+        },
       });
     }),
   delete: protectedProcedure
