@@ -22,8 +22,9 @@ model User {
 }
 
 model Post {
-  id   String @id @default(cuid())
-  text String
+  id        String   @id @default(cuid())
+  timestamp DateTime @default(now())
+  text      String
 
   author       User   @relation(name: "Posts", fields: [authorId], references: [id])
   authorId     String
