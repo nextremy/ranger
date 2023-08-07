@@ -11,6 +11,14 @@ export const postRouter = router({
           timestamp: true,
           text: true,
           author: { select: { id: true, username: true, displayName: true } },
+          reposts: {
+            select: { userId: true },
+            where: { userId: ctx.session?.userId },
+          },
+          stars: {
+            select: { userId: true },
+            where: { userId: ctx.session?.userId },
+          },
           _count: { select: { replies: true, reposts: true, stars: true } },
         },
         where: { id: input.id },
@@ -23,6 +31,8 @@ export const postRouter = router({
         timestamp: post.timestamp,
         text: post.text,
         author: post.author,
+        isRepostedByUser: post.reposts.length === 1,
+        isStarredByUser: post.stars.length === 1,
         replyCount: post._count.replies,
         repostCount: post._count.reposts,
         starCount: post._count.stars,
