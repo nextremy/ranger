@@ -35,15 +35,13 @@ export function ProfileRoute() {
       <Tab.Group>
         <Tab.List className="grid auto-cols-fr grid-flow-col">
           <Tab className="grid h-12 place-items-center font-semibold text-gray-600 duration-200 hover:bg-gray-200 hover:text-gray-900 ui-selected:text-gray-900">
-            <div>
+            <div className="grid h-12 place-items-center border-b-4 border-transparent px-2 ui-selected:border-green-700">
               Posts
-              <div className="h-1 rounded-full bg-transparent ui-selected:bg-green-700" />
             </div>
           </Tab>
           <Tab className="grid h-12 place-items-center font-semibold text-gray-600 duration-200 hover:bg-gray-200 hover:text-gray-900 ui-selected:text-gray-900">
-            <div>
+            <div className="grid h-12 place-items-center border-b-4 border-transparent px-2 ui-selected:border-green-700">
               Posts & replies
-              <div className="h-1 rounded-full bg-transparent ui-selected:bg-green-700" />
             </div>
           </Tab>
         </Tab.List>
