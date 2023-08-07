@@ -15,7 +15,14 @@ export function ProfileRoute() {
           <p className="text-lg font-medium leading-tight">
             {user.displayName}
           </p>
-          <p className="text-gray-600">@{user.username}</p>
+          <div className="flex gap-2">
+            <p className="text-gray-600">@{user.username}</p>
+            {user.isFollowingUser ? (
+              <p className="rounded-md bg-gray-200 px-2 font-medium">
+                Follows you
+              </p>
+            ) : null}
+          </div>
         </div>
         <FollowButton />
         <UnfollowButton />
