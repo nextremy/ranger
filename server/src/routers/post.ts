@@ -69,4 +69,36 @@ export const postRouter = router({
 
       await ctx.db.post.delete({ where: { id: input.postId } });
     }),
+  repost: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.repost.create({
+        data: { userId: ctx.session.userId, postId: input.postId },
+      });
+    }),
+  unrepost: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.repost.delete({
+        where: {
+          userId_postId: { userId: ctx.session.userId, postId: input.postId },
+        },
+      });
+    }),
+  star: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.star.create({
+        data: { userId: ctx.session.userId, postId: input.postId },
+      });
+    }),
+  unstar: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      await ctx.db.star.delete({
+        where: {
+          userId_postId: { userId: ctx.session.userId, postId: input.postId },
+        },
+      });
+    }),
 });
