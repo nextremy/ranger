@@ -35,4 +35,19 @@ export const postRouter = router({
         data: { text: input.text, authorId: ctx.session.userId },
       });
     }),
+  delete: protectedProcedure
+    .input(z.object({ postId: z.string() }))
+    .mutation(async ({ input, ctx }) => {
+      const post = await ctx.db.post.findUnique({
+        where: { id: input.postId },
+      });
+      if (!post) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+      if (post.authorId !== ctx.session.userId) {
+        throw new TRPCError({ code: "FORBIDDEN" });
+      }
+
+      await ctx.db.post.delete({ where: { id: input.postId } });
+    }),
 });
