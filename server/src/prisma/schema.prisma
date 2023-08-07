@@ -26,11 +26,11 @@ model Post {
   timestamp DateTime @default(now())
   text      String
 
-  author       User   @relation(name: "Posts", fields: [authorId], references: [id])
+  author       User    @relation(name: "Posts", fields: [authorId], references: [id])
   authorId     String
-  replyingTo   Post   @relation(name: "Replies", fields: [replyingToId], references: [id])
-  replyingToId String
-  replies      Post[] @relation(name: "Replies")
-  reposts      User[] @relation(name: "Reposts")
-  likes        User[] @relation(name: "Likes")
+  replyingTo   Post?   @relation(name: "Replies", fields: [replyingToId], references: [id])
+  replyingToId String?
+  replies      Post[]  @relation(name: "Replies")
+  reposts      User[]  @relation(name: "Reposts")
+  likes        User[]  @relation(name: "Likes")
 }
