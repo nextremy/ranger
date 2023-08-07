@@ -16,7 +16,7 @@ export function PostRoute() {
     <div className="border-b border-gray-300">
       <article className="p-4">
         <Link
-          className="group block w-max font-medium"
+          className="group block w-max"
           to={`/profiles/${post.author.username}`}
         >
           <p className="font-medium group-hover:underline">
