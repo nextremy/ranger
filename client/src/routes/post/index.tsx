@@ -32,33 +32,32 @@ export function PostRoute() {
           }).format(new Date(post.timestamp))}
         </p>
       </article>
-      <div className="mx-4 flex justify-between border-t border-gray-300 py-2">
+      <div className="mx-4 flex h-14 items-center gap-4 border-t border-gray-300">
+        <p>
+          <span className="font-semibold">{post.repostCount}</span> reposts
+        </p>
+        <p>
+          <span className="font-semibold">{post.starCount}</span> stars
+        </p>
+      </div>
+      <div className="mx-4 flex h-16 items-center justify-between border-t border-gray-300">
         <button
-          className="group flex h-12 items-center gap-2 text-gray-600 hover:text-green-600"
+          className="grid h-12 w-12 place-items-center rounded-full text-gray-600 duration-200 hover:bg-green-600/10 hover:text-green-600"
           title="Reply"
         >
-          <div className="grid h-10 w-10 place-items-center rounded-full duration-200 group-hover:bg-green-600/10">
-            <ChatBubbleLeftIcon className="h-5 w-5" />
-          </div>
-          {post.replyCount}
+          <ChatBubbleLeftIcon className="h-5 w-5" />
         </button>
         <button
-          className="group flex h-12 items-center gap-2 text-gray-600 hover:text-blue-600"
+          className="grid h-12 w-12 place-items-center rounded-full text-gray-600 duration-200 hover:bg-blue-600/10 hover:text-blue-600"
           title="Repost"
         >
-          <div className="grid h-10 w-10 place-items-center rounded-full duration-200 group-hover:bg-blue-600/10">
-            <ArrowPathRoundedSquareIcon className="h-5 w-5" />
-          </div>
-          {post.repostCount}
+          <ArrowPathRoundedSquareIcon className="h-5 w-5" />
         </button>
         <button
-          className="group flex h-12 items-center gap-2 text-gray-600 hover:text-yellow-600"
+          className="grid h-12 w-12 place-items-center rounded-full text-gray-600 duration-200 hover:bg-yellow-600/10 hover:text-yellow-600"
           title="Star"
         >
-          <div className="grid h-10 w-10 place-items-center rounded-full duration-200 group-hover:bg-yellow-600/10">
-            <StarIcon className="h-5 w-5" />
-          </div>
-          {post.starCount}
+          <StarIcon className="h-5 w-5" />
         </button>
         <button
           className="grid h-12 w-12 place-items-center rounded-full text-gray-600 duration-200 hover:bg-green-600/10 hover:text-green-600"
