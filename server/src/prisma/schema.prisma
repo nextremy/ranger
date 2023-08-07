@@ -18,7 +18,7 @@ model User {
   following     User[] @relation(name: "Following")
   posts         Post[] @relation(name: "Posts")
   repostedPosts Post[] @relation(name: "Reposts")
-  likedPosts    Post[] @relation(name: "Likes")
+  starredPosts  Post[] @relation(name: "Stars")
 }
 
 model Post {
@@ -32,5 +32,5 @@ model Post {
   replyingToId String?
   replies      Post[]  @relation(name: "Replies")
   reposts      User[]  @relation(name: "Reposts")
-  likes        User[]  @relation(name: "Likes")
+  stars        User[]  @relation(name: "Stars")
 }

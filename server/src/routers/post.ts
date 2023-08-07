@@ -11,7 +11,7 @@ export const postRouter = router({
           timestamp: true,
           text: true,
           author: { select: { id: true, username: true, displayName: true } },
-          _count: { select: { replies: true, reposts: true, likes: true } },
+          _count: { select: { replies: true, reposts: true, stars: true } },
         },
         where: { id: input.id },
       });
@@ -25,7 +25,7 @@ export const postRouter = router({
         author: post.author,
         replyCount: post._count.replies,
         repostCount: post._count.reposts,
-        likeCount: post._count.likes,
+        starCount: post._count.stars,
       };
     }),
   create: protectedProcedure
