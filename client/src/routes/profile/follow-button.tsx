@@ -17,7 +17,11 @@ export function FollowButton() {
       });
       context.user.get.setData({ username: params.username! }, (data) => {
         if (!data) return;
-        return { ...data, isFollowedByUser: true };
+        return {
+          ...data,
+          isFollowedByUser: true,
+          followerCount: data.followerCount + 1,
+        };
       });
     },
   });

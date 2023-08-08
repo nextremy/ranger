@@ -17,7 +17,11 @@ export function UnfollowButton() {
       });
       context.user.get.setData({ username: params.username! }, (data) => {
         if (!data) return;
-        return { ...data, isFollowedByUser: false };
+        return {
+          ...data,
+          isFollowedByUser: false,
+          followerCount: data.followerCount - 1,
+        };
       });
     },
   });
