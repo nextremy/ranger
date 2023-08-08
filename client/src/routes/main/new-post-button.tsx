@@ -1,11 +1,14 @@
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import { Modal } from "../../components/modal";
+import { useSession } from "../../hooks/use-session";
 import { NewPostForm } from "./new-post-form";
 
 export function NewPostButton() {
   const [modalOpen, setModalOpen] = useState(false);
+  const session = useSession();
 
+  if (!session) return null;
   return (
     <>
       <button
