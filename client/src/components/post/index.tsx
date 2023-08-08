@@ -1,3 +1,4 @@
+import { ArrowPathRoundedSquareIcon } from "@heroicons/react/20/solid";
 import { Link } from "react-router-dom";
 import { trpc } from "../../trpc";
 import { MoreActionsButton } from "./more-actions-button";
@@ -5,7 +6,10 @@ import { ReplyButton } from "./reply-button";
 import { RepostButton } from "./repost-button";
 import { StarButton } from "./star-button";
 
-export function Post(props: { postId: string }) {
+export function Post(props: {
+  postId: string;
+  repostedByUser?: { username: string; displayName: string };
+}) {
   const { data: post } = trpc.post.get.useQuery({ id: props.postId });
 
   if (!post) return null;
@@ -16,6 +20,12 @@ export function Post(props: { postId: string }) {
         to={`/posts/${props.postId}`}
       />
       <div className="mx-2 mt-2">
+        {props.repostedByUser ? (
+          <p className="z-20 flex items-center gap-2 text-sm font-medium text-gray-600 hover:underline">
+            <ArrowPathRoundedSquareIcon className="h-4 w-4" />
+            Reposted by {props.repostedByUser.displayName}
+          </p>
+        ) : null}
         <div className="flex gap-1">
           <Link
             className="group z-20 flex gap-1"
