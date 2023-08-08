@@ -9,7 +9,7 @@ type Inputs = {
 };
 
 export function EditProfileForm(props: {
-  setDialogOpen: Dispatch<SetStateAction<boolean>>;
+  setModalOpen: Dispatch<SetStateAction<boolean>>;
 }) {
   const displayNameInputId = useId();
   const descriptionInputId = useId();
@@ -43,7 +43,7 @@ export function EditProfileForm(props: {
       onSubmit={(event) => {
         event.preventDefault();
         void handleSubmit((inputs) => editProfile(inputs))(event);
-        props.setDialogOpen(false);
+        props.setModalOpen(false);
       }}
     >
       <label
