@@ -5,16 +5,19 @@ export function TopBar() {
   const { pathname } = useLocation();
 
   return (
-    <div className="flex h-16 items-center gap-2 border-b border-gray-300 px-2 md:px-4">
-      <div className="md:hidden">
-        <SidebarButton />
+    <>
+      <div className="fixed flex h-16 items-center gap-2 border-b border-gray-300 px-2 md:px-4 w-full bg-gray-100">
+        <div className="md:hidden">
+          <SidebarButton />
+        </div>
+        <h1 className="text-lg font-bold">
+          {pathname === "/" ? "Home" : ""}
+          {pathname.startsWith("/posts") ? "Post" : ""}
+          {pathname.startsWith("/profiles") ? "Profile" : ""}
+          {pathname === "/settings" ? "Settings" : ""}
+        </h1>
       </div>
-      <h1 className="text-lg font-bold">
-        {pathname === "/" ? "Home" : ""}
-        {pathname.startsWith("/posts") ? "Post" : ""}
-        {pathname.startsWith("/profiles") ? "Profile" : ""}
-        {pathname === "/settings" ? "Settings" : ""}
-      </h1>
-    </div>
+      <div className="h-16" />
+    </>
   );
 }
