@@ -1,4 +1,5 @@
 import { useLocation } from "react-router-dom";
+import { BackButton } from "./back-button";
 import { SidebarButton } from "./sidebar-button";
 
 export function TopBar() {
@@ -6,10 +7,18 @@ export function TopBar() {
 
   return (
     <>
-      <div className="fixed z-50 flex h-16 w-full items-center gap-2 border-b border-gray-300 bg-gray-100 px-2 md:px-4">
-        <div className="md:hidden">
-          <SidebarButton />
-        </div>
+      <div
+        className={`fixed z-50 flex h-16 w-full items-center gap-2 border-b border-gray-300 bg-gray-100 px-2 ${
+          pathname === "/" ? "md:px-4" : ""
+        }`}
+      >
+        {pathname === "/" ? (
+          <div className="md:hidden">
+            <SidebarButton />
+          </div>
+        ) : (
+          <BackButton />
+        )}
         <h1 className="text-lg font-bold">
           {pathname === "/" ? "Home" : ""}
           {pathname.startsWith("/posts") ? "Post" : ""}
