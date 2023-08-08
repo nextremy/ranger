@@ -1,10 +1,15 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useState } from "react";
+import { useParams } from "react-router-dom";
+import { useSession } from "../../hooks/use-session";
 import { EditProfileForm } from "./edit-profile-form";
 
 export function EditProfileButton() {
   const [dialogOpen, setDialogOpen] = useState(false);
+  const params = useParams();
+  const session = useSession();
 
+  if (params.username !== session?.username) return null;
   return (
     <>
       <button
