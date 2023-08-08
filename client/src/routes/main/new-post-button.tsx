@@ -17,6 +17,7 @@ export function NewPostButton() {
       </button>
       <Modal onClose={() => setModalOpen(false)} open={modalOpen}>
         <Modal.Title>New post</Modal.Title>
+        <Modal.CloseButton onClick={() => setModalOpen(false)} />
         <NewPostForm setModalOpen={setModalOpen} />
       </Modal>
     </>
