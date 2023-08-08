@@ -1,6 +1,6 @@
-import { EllipsisHorizontalIcon } from "@heroicons/react/24/outline";
 import { useParams } from "react-router-dom";
 import { trpc } from "../../../trpc";
+import { MoreActionsButton } from "./more-actions-button";
 import { ProfileInfo } from "./profile-info";
 import { ReplyButton } from "./reply-button";
 import { RepostButton } from "./repost-button";
@@ -31,12 +31,7 @@ export function MainPost() {
         <ReplyButton />
         <RepostButton />
         <StarButton />
-        <button
-          className="grid h-12 w-12 place-items-center rounded-full text-gray-500 duration-200 hover:bg-green-500/10 hover:text-green-500"
-          title="More options"
-        >
-          <EllipsisHorizontalIcon className="h-5 w-5" />
-        </button>
+        <MoreActionsButton />
       </div>
     </div>
   );
