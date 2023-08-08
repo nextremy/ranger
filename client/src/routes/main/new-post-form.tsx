@@ -32,7 +32,7 @@ export function NewPostForm(props: {
         New post
       </label>
       <textarea
-        className="mt-4 h-48 rounded-md bg-gray-300 p-4 placeholder:text-gray-500"
+        className="mt-4 h-48 rounded-md bg-gray-300 p-4 placeholder:text-gray-600 "
         id={postTextInputId}
         placeholder="What's up?"
         {...register("postText", {
@@ -49,19 +49,10 @@ export function NewPostForm(props: {
         </p>
       ) : null}
       <button
-        className="mt-4 h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-150 hover:bg-green-800"
+        className="mt-4 h-12 rounded-md bg-green-700 px-4 font-bold text-gray-100 duration-150 hover:bg-green-800"
         type="submit"
       >
         Post
-      </button>
-      <button
-        className="mt-2 h-12 rounded-md bg-gray-200 font-semibold duration-150 hover:bg-gray-300"
-        onClick={(event) => {
-          event.preventDefault();
-          props.setModalOpen(false);
-        }}
-      >
-        Cancel
       </button>
     </form>
   );
