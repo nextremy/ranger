@@ -8,11 +8,13 @@ export function Stats() {
   if (!post) return null;
   return (
     <div className="flex h-14 items-center gap-4">
-      <p>
-        <span className="font-semibold">{post.repostCount}</span> reposts
+      <p className={`${post.repostCount === 0 ? "hidden" : ""}`}>
+        <span className="font-semibold">{post.repostCount}</span>{" "}
+        {post.repostCount === 1 ? "repost" : "reposts"}
       </p>
-      <p>
-        <span className="font-semibold">{post.starCount}</span> stars
+      <p className={`${post.starCount === 0 ? "hidden" : ""}`}>
+        <span className="font-semibold">{post.starCount}</span>{" "}
+        {post.starCount === 1 ? "star" : "stars"}
       </p>
     </div>
   );

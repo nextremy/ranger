@@ -23,7 +23,12 @@ export function MainPost() {
             timeStyle: "short",
           }).format(new Date(post.timestamp))}
         </p>
-        <div className="mt-4 border-t border-gray-300">
+        <div className="h-4" />
+        <div
+          className={`border-t border-gray-300 ${
+            post.repostCount === 0 && post.starCount === 0 ? "hidden" : ""
+          }`}
+        >
           <Stats />
         </div>
       </article>
