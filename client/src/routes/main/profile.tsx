@@ -14,7 +14,7 @@ export function Profile() {
     <div className="p-2">
       <p className="text-lg font-medium leading-tight">{user.displayName}</p>
       <p className="text-gray-600">@{user.username}</p>
-      <div className="mt-2 flex gap-2">
+      <div className="mt-2 flex gap-4">
         <p>
           <span className="font-semibold">{user.followerCount}</span>{" "}
           <span className="text-gray-600">followers</span>
