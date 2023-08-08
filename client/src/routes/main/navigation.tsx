@@ -18,7 +18,7 @@ export function Navigation() {
   return (
     <div>
       <Link
-        className={`flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200 ${
+        className={`flex h-16 items-center gap-4 rounded-full px-6 text-lg duration-150 hover:bg-gray-200 ${
           pathname === "/" ? "font-bold" : ""
         }`}
         to="/"
@@ -32,7 +32,7 @@ export function Navigation() {
       </Link>
       {session && (
         <Link
-          className={`flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200 ${
+          className={`flex h-16 items-center gap-4 rounded-full px-6 text-lg duration-150 hover:bg-gray-200 ${
             pathname === `/profiles/${session.username}` ? "font-bold" : ""
           }`}
           to={`/profiles/${session.username}`}
@@ -46,7 +46,7 @@ export function Navigation() {
         </Link>
       )}
       <Link
-        className={`flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200 ${
+        className={`flex h-16 items-center gap-4 rounded-full px-6 text-lg duration-150 hover:bg-gray-200 ${
           pathname === "/settings" ? "font-bold" : ""
         }`}
         to="/settings"
