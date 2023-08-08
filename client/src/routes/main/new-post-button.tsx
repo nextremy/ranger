@@ -9,7 +9,7 @@ export function NewPostButton() {
   return (
     <>
       <button
-        className="flex h-16 w-full items-center justify-center gap-2 rounded-full bg-green-700 px-4 text-lg font-bold text-gray-100 duration-150 hover:bg-green-800"
+        className="flex h-16 items-center justify-center gap-2 rounded-full bg-green-700 px-4 text-lg font-bold text-gray-100 duration-150 hover:bg-green-800"
         onClick={() => setModalOpen(true)}
       >
         <PencilSquareIcon className="h-5 w-5" />

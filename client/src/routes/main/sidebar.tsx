@@ -5,9 +5,9 @@ import { Profile } from "./profile";
 export function Sidebar() {
   return (
     <>
-      <Profile />
-      <Navigation />
-      <div className="p-2">
+      <div className="flex flex-col gap-2 p-2">
+        <Profile />
+        <Navigation />
         <NewPostButton />
       </div>
     </>

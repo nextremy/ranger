@@ -16,7 +16,7 @@ export function Navigation() {
   const session = useSession();
 
   return (
-    <div className="p-2">
+    <div>
       <Link
         className={`flex h-16 items-center gap-4 rounded-lg px-4 text-lg duration-150 hover:bg-gray-200 ${
           pathname === "/" ? "font-bold" : ""
