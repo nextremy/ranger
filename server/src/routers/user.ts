@@ -151,8 +151,13 @@ export const userRouter = router({
           _count: { select: { replies: true, reposts: true, stars: true } },
         },
         where: {
-          author: { username: input.username },
-          replyingToId: input.includeReplies ? undefined : null,
+          OR: [
+            {
+              author: { username: input.username },
+              replyingToId: input.includeReplies ? undefined : null,
+            },
+            { reposts: { some: { user: { username: input.username } } } },
+          ],
         },
         take: 25,
         orderBy: { timestamp: "desc" },
