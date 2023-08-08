@@ -43,7 +43,7 @@ export const postRouter = router({
   create: protectedProcedure
     .input(
       z.object({
-        text: z.string().min(1).min(300),
+        text: z.string().min(1).max(300),
         replyingToPostId: z.optional(z.string()),
       })
     )
