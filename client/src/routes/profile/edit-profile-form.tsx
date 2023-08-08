@@ -93,13 +93,10 @@ export function EditProfileForm(props: {
         </p>
       ) : null}
       <button
-        className="mt-8 h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-200 hover:bg-green-800"
+        className="mt-4 h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-200 hover:bg-green-800"
         type="submit"
       >
         Save changes
-      </button>
-      <button className="mt-2 h-12 rounded-md bg-gray-200 font-bold duration-200 hover:bg-gray-300">
-        Cancel
       </button>
     </form>
   );

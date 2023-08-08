@@ -20,6 +20,7 @@ export function EditProfileButton() {
       </button>
       <Modal onClose={() => setModalOpen(false)} open={modalOpen}>
         <Modal.Title>Edit profile</Modal.Title>
+        <Modal.CloseButton onClick={() => setModalOpen(false)} />
         <EditProfileForm setModalOpen={setModalOpen} />
       </Modal>
     </>

@@ -1,5 +1,6 @@
 import { Dialog, Transition } from "@headlessui/react";
 import { ComponentProps, Fragment, ReactNode } from "react";
+import { CloseButton } from "./close-button";
 import { Title } from "./title";
 
 export function Modal(props: {
@@ -41,4 +42,5 @@ export function Modal(props: {
   );
 }
 
+Modal.CloseButton = CloseButton;
 Modal.Title = Title;
