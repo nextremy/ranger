@@ -1,4 +1,5 @@
 import { Tab } from "@headlessui/react";
+import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useParams } from "react-router-dom";
 import { trpc } from "../../trpc";
 import { EditProfileButton } from "./edit-profile-button";
@@ -14,7 +15,13 @@ export function ProfileRoute() {
   return (
     <>
       <div className="p-4">
-        <div className="flex justify-between">
+        <div>
+          <div className="flex items-start justify-between">
+            <UserCircleIcon className="-ml-4 -mt-4 h-32 w-32 text-gray-300" />
+            <FollowButton />
+            <UnfollowButton />
+            <EditProfileButton />
+          </div>
           <div>
             <p className="text-lg font-medium leading-tight">
               {user.displayName}
@@ -39,9 +46,6 @@ export function ProfileRoute() {
             </div>
             <p className="mt-4 whitespace-pre">{user.description}</p>
           </div>
-          <FollowButton />
-          <UnfollowButton />
-          <EditProfileButton />
         </div>
       </div>
       <Tab.Group>
