@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { trpc } from "../../trpc";
 import { EditProfileButton } from "./edit-profile-button";
 import { FollowButton } from "./follow-button";
+import { PostList } from "./post-list";
 import { UnfollowButton } from "./unfollow-button";
 
 export function ProfileRoute() {
@@ -57,8 +58,12 @@ export function ProfileRoute() {
           </Tab>
         </Tab.List>
         <Tab.Panels className="border-t border-gray-300">
-          <Tab.Panel></Tab.Panel>
-          <Tab.Panel></Tab.Panel>
+          <Tab.Panel>
+            <PostList includeReplies={false} />
+          </Tab.Panel>
+          <Tab.Panel>
+            <PostList includeReplies />
+          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </>
