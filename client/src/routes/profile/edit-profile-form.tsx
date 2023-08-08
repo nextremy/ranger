@@ -42,8 +42,10 @@ export function EditProfileForm(props: {
       className="flex flex-col"
       onSubmit={(event) => {
         event.preventDefault();
-        void handleSubmit((inputs) => editProfile(inputs))(event);
-        props.setModalOpen(false);
+        void handleSubmit((inputs) => {
+          editProfile(inputs);
+          props.setModalOpen(false);
+        })(event);
       }}
     >
       <label
