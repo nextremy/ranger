@@ -45,7 +45,12 @@ export function NewPostButton() {
           }}
         >
           <Modal.TopBar>
-            <Modal.CloseButton onClick={() => setModalOpen(false)} />
+            <Modal.CloseButton
+              onClick={(event) => {
+                event.preventDefault();
+                setModalOpen(false);
+              }}
+            />
             <Modal.Title>New post</Modal.Title>
             <div className="grow" />
             <button
