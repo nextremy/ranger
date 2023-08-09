@@ -1,6 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/20/solid";
 import { useId, useState } from "react";
 import { useForm } from "react-hook-form";
+import { Form } from "../../components/form";
 import { Modal } from "../../components/modal";
 import { useSession } from "../../hooks/use-session";
 import { trpc } from "../../trpc";
@@ -17,6 +18,7 @@ export function NewPostButton() {
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm<Inputs>();
 
@@ -38,6 +40,7 @@ export function NewPostButton() {
             void handleSubmit((inputs) => {
               createPost({ text: inputs.postText });
               setModalOpen(false);
+              setTimeout(() => reset(), 150);
             })(event);
           }}
         >
