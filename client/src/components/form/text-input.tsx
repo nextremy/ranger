@@ -8,7 +8,7 @@ export const TextInput = forwardRef(function TextInput(
 ) {
   return (
     <input
-      className={`mt-1 h-12 rounded-md bg-gray-300 px-4 ${className}`}
+      className={`h-12 rounded-md bg-gray-300 px-4 ${className}`}
       {...restProps}
       ref={ref}
     />
