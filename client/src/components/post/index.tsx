@@ -31,7 +31,7 @@ export function Post(props: {
       <div className="grow">
         <div className="mx-2 mt-2">
           {props.repostedByUser ? (
-            <p className="z-20 flex items-center gap-2 text-sm font-medium text-gray-600 hover:underline">
+            <p className="z-20 flex items-center gap-1 text-sm font-medium text-gray-600 hover:underline">
               <ArrowPathRoundedSquareIcon className="h-4 w-4" />
               Reposted by {props.repostedByUser.displayName}
             </p>
