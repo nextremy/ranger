@@ -69,7 +69,10 @@ export const postRouter = router({
         throw new TRPCError({ code: "FORBIDDEN" });
       }
 
-      await ctx.db.post.delete({ where: { id: input.postId } });
+      await ctx.db.post.update({
+        data: { deleted: true },
+        where: { id: input.postId },
+      });
     }),
   repost: protectedProcedure
     .input(z.object({ postId: z.string() }))

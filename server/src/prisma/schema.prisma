@@ -25,6 +25,7 @@ model Post {
   id        String   @id @default(cuid())
   timestamp DateTime @default(now())
   text      String
+  deleted   Boolean  @default(false)
 
   author       User     @relation(name: "Posts", fields: [authorId], references: [id])
   authorId     String
