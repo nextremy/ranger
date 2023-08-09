@@ -26,9 +26,7 @@ export function UnfollowButton() {
     },
   });
 
-  if (!user || user.id === session?.userId || !user.isFollowedByUser) {
-    return null;
-  }
+  if (!user) return null;
   return (
     <button
       className="flex h-12 items-center gap-2 rounded-full bg-gray-200 px-6 font-bold duration-200 hover:bg-gray-300"

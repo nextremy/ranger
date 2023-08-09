@@ -1,6 +1,7 @@
 import { Tab } from "@headlessui/react";
 import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useParams } from "react-router-dom";
+import { useSession } from "../../hooks/use-session";
 import { trpc } from "../../trpc";
 import { EditProfileButton } from "./edit-profile-button";
 import { FollowButton } from "./follow-button";
@@ -8,6 +9,7 @@ import { PostList } from "./post-list";
 import { UnfollowButton } from "./unfollow-button";
 
 export function ProfileRoute() {
+  const session = useSession();
   const params = useParams();
   const { data: user } = trpc.user.get.useQuery({ username: params.username! });
 
@@ -18,9 +20,15 @@ export function ProfileRoute() {
         <div>
           <div className="flex items-start justify-between">
             <UserCircleIcon className="-ml-4 -mt-4 h-32 w-32 text-gray-300" />
-            <FollowButton />
-            <UnfollowButton />
-            <EditProfileButton />
+            {user.isFollowedByUser && session?.username !== params.username ? (
+              <UnfollowButton />
+            ) : null}
+            {!user.isFollowedByUser && session?.username !== params.username ? (
+              <FollowButton />
+            ) : null}
+            {session?.username === params.username ? (
+              <EditProfileButton />
+            ) : null}
           </div>
           <div>
             <p className="text-lg font-medium leading-tight">

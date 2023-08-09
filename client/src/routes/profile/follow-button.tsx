@@ -26,9 +26,7 @@ export function FollowButton() {
     },
   });
 
-  if (!user || user.id === session?.userId || user.isFollowedByUser) {
-    return null;
-  }
+  if (!user) return null;
   return (
     <button
       className="flex h-12 items-center gap-2 rounded-full bg-green-700 px-6 font-bold text-gray-100 duration-200 hover:bg-green-800"

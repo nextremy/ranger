@@ -1,15 +1,10 @@
 import { useState } from "react";
-import { useParams } from "react-router-dom";
 import { Modal } from "../../components/modal";
-import { useSession } from "../../hooks/use-session";
 import { EditProfileForm } from "./edit-profile-form";
 
 export function EditProfileButton() {
   const [modalOpen, setModalOpen] = useState(false);
-  const params = useParams();
-  const session = useSession();
 
-  if (params.username !== session?.username) return null;
   return (
     <>
       <button
