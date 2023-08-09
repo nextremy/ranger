@@ -122,75 +122,33 @@ export const userRouter = router({
     .input(
       z.object({
         username: z.string(),
-        cursor: z.optional(z.string()),
+        cursor: z.optional(
+          z.object({
+            isRepost: z.boolean(),
+            userId: z.string(),
+            postId: z.string(),
+          })
+        ),
         includeReplies: z.boolean(),
       })
     )
     .query(async ({ input, ctx }) => {
-      const posts = await ctx.db.post.findMany({
-        select: {
-          id: true,
-          timestamp: true,
-          text: true,
-          deleted: true,
-          author: { select: { id: true, username: true, displayName: true } },
-          replyingTo: {
-            select: {
-              id: true,
-              timestamp: true,
-              text: true,
-              author: {
-                select: { id: true, username: true, displayName: true },
-              },
-              reposts: { where: { userId: ctx.session?.userId } },
-              stars: { where: { userId: ctx.session?.userId } },
-              _count: { select: { replies: true, reposts: true, stars: true } },
+      const post = await ctx.db.metaPost.findMany({
+        select: { isRepost: true, userId: true, postId: true },
+        where: input.includeReplies
+          ? { user: { username: input.username }, post: { deleted: false } }
+          : {
+              user: { username: input.username },
+              post: { deleted: false, replyingTo: null },
             },
-          },
-          reposts: { where: { userId: ctx.session?.userId } },
-          stars: { where: { userId: ctx.session?.userId } },
-          _count: { select: { replies: true, reposts: true, stars: true } },
-        },
-        where: {
-          OR: [
-            {
-              author: { username: input.username },
-              replyingToId: input.includeReplies ? undefined : null,
-            },
-            { reposts: { some: { user: { username: input.username } } } },
-          ],
-        },
         take: 25,
         orderBy: { timestamp: "desc" },
         skip: input.cursor ? 1 : 0,
-        cursor: input.cursor ? { id: input.cursor } : undefined,
+        cursor: input.cursor
+          ? { isRepost_userId_postId: input.cursor }
+          : undefined,
       });
 
-      return posts
-        .filter((post) => !post.deleted)
-        .map((post) => ({
-          id: post.id,
-          timestamp: post.timestamp,
-          text: post.text,
-          author: post.author,
-          replyingTo: post.replyingTo
-            ? {
-                id: post.replyingTo.id,
-                timestamp: post.replyingTo.timestamp,
-                text: post.replyingTo.text,
-                author: post.replyingTo.author,
-                isRepostedByUser: post.replyingTo.reposts.length === 1,
-                isStarredByUser: post.replyingTo.stars.length === 1,
-                replyCount: post._count.replies,
-                repostCount: post._count.reposts,
-                starCount: post._count.stars,
-              }
-            : null,
-          isRepostedByUser: post.reposts.length === 1,
-          isStarredByUser: post.stars.length === 1,
-          replyCount: post._count.replies,
-          repostCount: post._count.reposts,
-          starCount: post._count.stars,
-        }));
+      return post;
     }),
 });

@@ -14,11 +14,24 @@ model User {
   displayName  String
   description  String @default("")
 
-  followers User[]   @relation(name: "Following")
-  following User[]   @relation(name: "Following")
-  posts     Post[]   @relation(name: "Posts")
+  followers User[]     @relation(name: "Following")
+  following User[]     @relation(name: "Following")
+  metaPosts MetaPost[] @relation(name: "UserMetaPosts")
+  posts     Post[]     @relation(name: "UserPosts")
   reposts   Repost[]
   stars     Star[]
+}
+
+model MetaPost {
+  isRepost  Boolean
+  timestamp DateTime @default(now())
+
+  user   User   @relation(name: "UserMetaPosts", fields: [userId], references: [id])
+  userId String
+  post   Post   @relation(name: "PostMetaPosts", fields: [postId], references: [id])
+  postId String
+
+  @@id([isRepost, userId, postId])
 }
 
 model Post {
@@ -27,11 +40,12 @@ model Post {
   text      String
   deleted   Boolean  @default(false)
 
-  author       User     @relation(name: "Posts", fields: [authorId], references: [id])
+  author       User       @relation(name: "UserPosts", fields: [authorId], references: [id])
   authorId     String
-  replyingTo   Post?    @relation(name: "Replies", fields: [replyingToId], references: [id])
+  metaPosts    MetaPost[] @relation(name: "PostMetaPosts")
+  replyingTo   Post?      @relation(name: "PostReplies", fields: [replyingToId], references: [id])
   replyingToId String?
-  replies      Post[]   @relation(name: "Replies")
+  replies      Post[]     @relation(name: "PostReplies")
   reposts      Repost[]
   stars        Star[]
 }

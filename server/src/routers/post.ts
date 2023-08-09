@@ -49,12 +49,21 @@ export const postRouter = router({
       })
     )
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.post.create({
-        data: {
-          text: input.text,
-          authorId: ctx.session.userId,
-          replyingToId: input.replyingToPostId,
-        },
+      await ctx.db.$transaction(async (db) => {
+        const post = await db.post.create({
+          data: {
+            text: input.text,
+            authorId: ctx.session.userId,
+            replyingToId: input.replyingToPostId,
+          },
+        });
+        await db.metaPost.create({
+          data: {
+            isRepost: false,
+            userId: ctx.session.userId,
+            postId: post.id,
+          },
+        });
       });
     }),
   delete: protectedProcedure
@@ -78,18 +87,38 @@ export const postRouter = router({
   repost: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.repost.create({
-        data: { userId: ctx.session.userId, postId: input.postId },
-      });
+      await ctx.db.$transaction([
+        ctx.db.metaPost.create({
+          data: {
+            isRepost: true,
+            userId: ctx.session.userId,
+            postId: input.postId,
+          },
+        }),
+        ctx.db.repost.create({
+          data: { userId: ctx.session.userId, postId: input.postId },
+        }),
+      ]);
     }),
   unrepost: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      await ctx.db.repost.delete({
-        where: {
-          userId_postId: { userId: ctx.session.userId, postId: input.postId },
-        },
-      });
+      await ctx.db.$transaction([
+        ctx.db.metaPost.delete({
+          where: {
+            isRepost_userId_postId: {
+              isRepost: true,
+              userId: ctx.session.userId,
+              postId: input.postId,
+            },
+          },
+        }),
+        ctx.db.repost.delete({
+          where: {
+            userId_postId: { userId: ctx.session.userId, postId: input.postId },
+          },
+        }),
+      ]);
     }),
   star: protectedProcedure
     .input(z.object({ postId: z.string() }))
