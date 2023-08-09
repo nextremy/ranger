@@ -41,8 +41,11 @@ export function RegisterRoute() {
       }}
     >
       <h1 className="text-center text-xl font-bold">Register</h1>
-      <Form.Label htmlFor={usernameInputId}>Username</Form.Label>
+      <Form.Label className="mt-4" htmlFor={usernameInputId}>
+        Username
+      </Form.Label>
       <Form.TextInput
+        className="mt-1"
         id={usernameInputId}
         {...register("username", {
           required: "Username is required",
