@@ -55,7 +55,7 @@ export function Post(props: {
           </div>
           <p className="z-20">{post.text}</p>
         </div>
-        <div className="mt-2 flex items-center justify-between">
+        <div className="flex items-center justify-between">
           <ReplyButton postId={post.id} />
           <RepostButton postId={post.id} />
           <StarButton postId={post.id} />
