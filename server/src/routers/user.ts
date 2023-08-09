@@ -134,7 +134,11 @@ export const userRouter = router({
     )
     .query(async ({ input, ctx }) => {
       const post = await ctx.db.metaPost.findMany({
-        select: { isRepost: true, userId: true, postId: true },
+        select: {
+          isRepost: true,
+          user: { select: { id: true, username: true, displayName: true } },
+          postId: true,
+        },
         where: input.includeReplies
           ? { user: { username: input.username }, post: { deleted: false } }
           : {
