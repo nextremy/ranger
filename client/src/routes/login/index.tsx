@@ -1,6 +1,7 @@
 import { useId } from "react";
 import { useForm } from "react-hook-form";
 import { Link, useNavigate } from "react-router-dom";
+import { Form } from "../../components/form";
 import { trpc } from "../../trpc";
 
 type Inputs = {
@@ -21,16 +22,10 @@ export function LoginRoute() {
     },
     onError: (error) => {
       if (error.data?.code === "UNAUTHORIZED") {
-        setError("root", {
-          type: "server",
-          message: "Invalid username or password.",
-        });
+        setError("root", { message: "Invalid username or password" });
         return;
       }
-      setError("root", {
-        type: "server",
-        message: "An unknown error occurred.",
-      });
+      setError("root", { message: "Unknown error" });
     },
   });
   const {
@@ -49,51 +44,40 @@ export function LoginRoute() {
       }}
     >
       <h1 className="text-center text-xl font-bold">Log in</h1>
-      <label
-        className="mt-4 text-sm font-semibold tracking-wide"
-        htmlFor={usernameInputId}
-      >
+      <Form.Label className="mt-4" htmlFor={usernameInputId}>
         Username
-      </label>
-      <input
-        className="mt-1 h-12 rounded-md bg-gray-300 px-4"
+      </Form.Label>
+      <Form.TextInput
+        className="mt-1"
         id={usernameInputId}
-        type="text"
-        {...register("username", { required: "This field is required." })}
+        {...register("username", { required: "Username is required" })}
       />
-      {errors.username && (
-        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
-          {errors.username.message}
-        </p>
-      )}
-      <label
-        className="mt-4 text-sm font-semibold tracking-wide"
-        htmlFor={passwordInputId}
-      >
+      {errors.username ? (
+        <Form.Error className="mt-1">{errors.username.message}</Form.Error>
+      ) : null}
+      <Form.Label className="mt-4" htmlFor={passwordInputId}>
         Password
-      </label>
-      <input
-        className="mt-1 h-12 rounded-md bg-gray-300 px-4"
+      </Form.Label>
+      <Form.TextInput
+        className="mt-1"
         id={passwordInputId}
         type="password"
-        {...register("password", { required: "This field is required." })}
+        {...register("password", { required: "Password is required" })}
       />
-      {errors.password && (
-        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
-          {errors.password.message}
-        </p>
-      )}
+      {errors.password ? (
+        <Form.Error className="mt-1">{errors.password.message}</Form.Error>
+      ) : null}
       <button
         className="mt-8 h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-150 hover:bg-green-600"
         type="submit"
       >
         Log in
       </button>
-      {errors.root && (
-        <p className="mt-4 text-center text-sm font-medium tracking-wide text-red-700">
+      {errors.root ? (
+        <Form.Error className="mt-4 text-center">
           {errors.root.message}
-        </p>
-      )}
+        </Form.Error>
+      ) : null}
       <p className="mt-4 text-center">
         Don{"'"}t have an account?{" "}
         <Link className="text-blue-700" to="/register">

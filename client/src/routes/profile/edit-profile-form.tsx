@@ -1,5 +1,6 @@
 import { Dispatch, SetStateAction, useId } from "react";
 import { useForm } from "react-hook-form";
+import { Form } from "../../components/form";
 import { useSession } from "../../hooks/use-session";
 import { trpc } from "../../trpc";
 
@@ -48,49 +49,38 @@ export function EditProfileForm(props: {
         })(event);
       }}
     >
-      <label
-        className="mt-4 text-sm font-semibold tracking-wide"
-        htmlFor={displayNameInputId}
-      >
+      <Form.Label className="mt-4" htmlFor={displayNameInputId}>
         Display name
-      </label>
-      <input
-        className="mt-1 h-12 rounded-md bg-gray-300 px-4"
+      </Form.Label>
+      <Form.TextInput
+        className="mt-1"
         id={displayNameInputId}
-        type="text"
         {...register("displayName", {
-          required: "A display name is required.",
+          required: "Display name is required",
           maxLength: {
             value: 16,
-            message: "Display name cannot be longer than than 16 characters",
+            message: "Display name cannot be more than 16 characters long",
           },
         })}
       />
       {errors.displayName ? (
-        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
-          {errors.displayName.message}
-        </p>
+        <Form.Error className="mt-1">{errors.displayName.message}</Form.Error>
       ) : null}
-      <label
-        className="mt-4 text-sm font-semibold tracking-wide"
-        htmlFor={descriptionInputId}
-      >
+      <Form.Label className="mt-4" htmlFor={descriptionInputId}>
         Description
-      </label>
-      <textarea
-        className="mt-1 h-48 rounded-md bg-gray-300 p-4"
+      </Form.Label>
+      <Form.TextArea
+        className="mt-1"
         id={descriptionInputId}
         {...register("description", {
           maxLength: {
             value: 300,
-            message: "Description cannot be longer than 300 characters",
+            message: "Description cannot be more than 300 characters long",
           },
         })}
       />
       {errors.description ? (
-        <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
-          {errors.description.message}
-        </p>
+        <Form.Error className="mt-1">{errors.description.message}</Form.Error>
       ) : null}
       <button
         className="mt-4 h-12 rounded-md bg-green-700 font-bold text-gray-100 duration-200 hover:bg-green-800"
