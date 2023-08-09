@@ -1,14 +1,17 @@
 import { XMarkIcon } from "@heroicons/react/24/solid";
 import { MouseEventHandler } from "react";
 
-export function CloseButton(props: {
+type Props = {
   onClick: MouseEventHandler<HTMLButtonElement>;
-}) {
+};
+
+export function CloseButton({ onClick, ...restProps }: Props) {
   return (
     <button
-      className="absolute right-2 top-2 grid h-12 w-12 place-items-center rounded-full duration-150 hover:bg-gray-200"
-      onClick={props.onClick}
+      className="grid h-12 w-12 place-items-center rounded-full duration-150 hover:bg-gray-200"
+      onClick={onClick}
       title="Close"
+      {...restProps}
     >
       <XMarkIcon className="h-6 w-6" />
     </button>

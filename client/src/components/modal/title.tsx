@@ -1,10 +1,10 @@
 import { Dialog } from "@headlessui/react";
 import { ReactNode } from "react";
 
-export function Title(props: { children: ReactNode }) {
+type Props = { children: ReactNode };
+
+export function Title(props: Props) {
   return (
-    <Dialog.Title className="text-center text-lg font-bold">
-      {props.children}
-    </Dialog.Title>
+    <Dialog.Title className="text-lg font-bold">{props.children}</Dialog.Title>
   );
 }

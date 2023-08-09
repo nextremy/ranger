@@ -2,6 +2,7 @@ import { Dialog, Transition } from "@headlessui/react";
 import { ComponentProps, Fragment, ReactNode } from "react";
 import { CloseButton } from "./close-button";
 import { Title } from "./title";
+import { TopBar } from "./top-bar";
 
 export function Modal(props: {
   onClose: ComponentProps<typeof Dialog>["onClose"];
@@ -32,7 +33,7 @@ export function Modal(props: {
             leaveFrom="opacity-100 scale-100"
             leaveTo="opacity-0 scale-95"
           >
-            <Dialog.Panel className="w-full max-w-md rounded-xl bg-gray-100 p-4">
+            <Dialog.Panel className="w-full max-w-md rounded-xl bg-gray-100 p-2">
               {props.children}
             </Dialog.Panel>
           </Transition.Child>
@@ -44,3 +45,4 @@ export function Modal(props: {
 
 Modal.CloseButton = CloseButton;
 Modal.Title = Title;
+Modal.TopBar = TopBar;
