@@ -11,6 +11,7 @@ export const postRouter = router({
           id: true,
           timestamp: true,
           text: true,
+          deleted: true,
           author: { select: { id: true, username: true, displayName: true } },
           reposts: {
             select: { userId: true },
@@ -24,7 +25,7 @@ export const postRouter = router({
         },
         where: { id: input.id },
       });
-      if (!post) {
+      if (!post || post.deleted) {
         throw new TRPCError({ code: "NOT_FOUND" });
       }
 

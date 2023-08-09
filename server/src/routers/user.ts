@@ -132,6 +132,7 @@ export const userRouter = router({
           id: true,
           timestamp: true,
           text: true,
+          deleted: true,
           author: { select: { id: true, username: true, displayName: true } },
           replyingTo: {
             select: {
@@ -165,29 +166,31 @@ export const userRouter = router({
         cursor: input.cursor ? { id: input.cursor } : undefined,
       });
 
-      return posts.map((post) => ({
-        id: post.id,
-        timestamp: post.timestamp,
-        text: post.text,
-        author: post.author,
-        replyingTo: post.replyingTo
-          ? {
-              id: post.replyingTo.id,
-              timestamp: post.replyingTo.timestamp,
-              text: post.replyingTo.text,
-              author: post.replyingTo.author,
-              isRepostedByUser: post.replyingTo.reposts.length === 1,
-              isStarredByUser: post.replyingTo.stars.length === 1,
-              replyCount: post._count.replies,
-              repostCount: post._count.reposts,
-              starCount: post._count.stars,
-            }
-          : null,
-        isRepostedByUser: post.reposts.length === 1,
-        isStarredByUser: post.stars.length === 1,
-        replyCount: post._count.replies,
-        repostCount: post._count.reposts,
-        starCount: post._count.stars,
-      }));
+      return posts
+        .filter((post) => !post.deleted)
+        .map((post) => ({
+          id: post.id,
+          timestamp: post.timestamp,
+          text: post.text,
+          author: post.author,
+          replyingTo: post.replyingTo
+            ? {
+                id: post.replyingTo.id,
+                timestamp: post.replyingTo.timestamp,
+                text: post.replyingTo.text,
+                author: post.replyingTo.author,
+                isRepostedByUser: post.replyingTo.reposts.length === 1,
+                isStarredByUser: post.replyingTo.stars.length === 1,
+                replyCount: post._count.replies,
+                repostCount: post._count.reposts,
+                starCount: post._count.stars,
+              }
+            : null,
+          isRepostedByUser: post.reposts.length === 1,
+          isStarredByUser: post.stars.length === 1,
+          replyCount: post._count.replies,
+          repostCount: post._count.reposts,
+          starCount: post._count.stars,
+        }));
     }),
 });
