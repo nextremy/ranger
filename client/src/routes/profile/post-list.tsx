@@ -6,45 +6,43 @@ import { trpc } from "../../trpc";
 
 export function PostList(props: { includeReplies: boolean }) {
   const params = useParams();
-  const context = trpc.useContext();
-  const { data: user } = trpc.user.get.useQuery({ username: params.username! });
-  const {
-    data: infinitePosts,
-    fetchNextPage: fetchNextPosts,
-    hasNextPage: hasNewPosts,
-  } = trpc.user.listPosts.useInfiniteQuery(
+  const userQuery = trpc.user.get.useQuery({ username: params.username! });
+  const postsQuery = trpc.user.listPosts.useInfiniteQuery(
     { username: params.username!, includeReplies: props.includeReplies },
-    { getNextPageParam: (lastPage) => lastPage.at(-1)?.id },
+    {
+      getNextPageParam: (lastPage) => {
+        const lastPost = lastPage.at(-1);
+        if (!lastPost) return;
+        return {
+          isRepost: lastPost.isRepost,
+          userId: lastPost.user.id,
+          postId: lastPost.postId,
+        };
+      },
+    },
   );
-  useEffect(() => {
-    if (!infinitePosts) return;
-    for (const page of infinitePosts.pages) {
-      for (const post of page) {
-        context.post.get.setData({ id: post.id }, () => post);
-      }
-    }
-  }, [context, infinitePosts]);
   const { ref, inView } = useInView();
   useEffect(() => {
-    if (inView && hasNewPosts) {
-      void fetchNextPosts();
+    if (inView && postsQuery.hasNextPage) {
+      void postsQuery.fetchNextPage();
     }
-  }, [inView, hasNewPosts, fetchNextPosts]);
+  }, [inView, postsQuery]);
 
-  if (!user) return null;
-  if (!infinitePosts) return null;
+  console.log(postsQuery.data);
+
+  if (!userQuery.data) return null;
+  if (!postsQuery.data) return null;
   return (
     <ul className="divide-y divide-gray-300">
-      {infinitePosts.pages.map((page) =>
+      {postsQuery.data.pages.map((page) =>
         page.map((post, i) => (
-          <li key={post.id} ref={page.length === i + 1 ? ref : null}>
+          <li
+            key={`${post.isRepost}-${post.postId}-${post.user.id}`}
+            ref={page.length === i + 1 ? ref : null}
+          >
             <Post
-              postId={post.id}
-              repostedByUser={
-                post.author.username === params.username
-                  ? undefined
-                  : user
-              }
+              postId={post.postId}
+              repostedByUser={post.isRepost ? post.user : undefined}
             />
           </li>
         )),
