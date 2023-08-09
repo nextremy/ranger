@@ -6,6 +6,7 @@ import { MoreActionsButton } from "./more-actions-button";
 import { ReplyButton } from "./reply-button";
 import { RepostButton } from "./repost-button";
 import { StarButton } from "./star-button";
+import { toShortTimestamp } from "./to-short-timestamp";
 
 export function Post(props: {
   postId: string;
@@ -47,10 +48,7 @@ export function Post(props: {
             </Link>
             <span className="text-gray-600">·</span>
             <p className="z-20 text-gray-600">
-              {Intl.DateTimeFormat("en-us", {
-                dateStyle: "medium",
-                timeStyle: "short",
-              }).format(new Date(post.timestamp))}
+              {toShortTimestamp(post.timestamp)}
             </p>
           </div>
           <p className="z-20">{post.text}</p>
