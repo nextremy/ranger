@@ -68,9 +68,9 @@ export function NewPostButton() {
             })}
           />
           {errors.postText ? (
-            <p className="mt-1 text-sm font-medium tracking-wide text-red-700">
+            <Form.Error className="text-center">
               {errors.postText.message}
-            </p>
+            </Form.Error>
           ) : null}
         </form>
       </Modal>
