@@ -1,5 +1,4 @@
 import { Tab } from "@headlessui/react";
-import { UserCircleIcon } from "@heroicons/react/24/solid";
 import { Link, useParams } from "react-router-dom";
 import { useSession } from "../../hooks/use-session";
 import { trpc } from "../../trpc";
@@ -17,19 +16,7 @@ export function ProfileRoute() {
   return (
     <>
       <div className="p-4">
-        <div>
-          <div className="flex items-start justify-between">
-            <UserCircleIcon className="-ml-4 -mt-4 h-32 w-32 text-gray-300" />
-            {user.isFollowedByUser && session?.username !== params.username ? (
-              <UnfollowButton />
-            ) : null}
-            {!user.isFollowedByUser && session?.username !== params.username ? (
-              <FollowButton />
-            ) : null}
-            {session?.username === params.username ? (
-              <EditProfileButton />
-            ) : null}
-          </div>
+        <div className="flex justify-between">
           <div>
             <p className="text-lg font-medium leading-tight">
               {user.displayName}
@@ -42,19 +29,26 @@ export function ProfileRoute() {
                 </p>
               ) : null}
             </div>
-            <div className="mt-4 flex gap-4">
-              <Link to="followers">
-                <span className="font-semibold">{user.followerCount}</span>{" "}
-                <span className="text-gray-700">followers</span>
-              </Link>
-              <Link to="following">
-                <span className="font-semibold">{user.followingCount}</span>{" "}
-                <span className="text-gray-700">following</span>
-              </Link>
-            </div>
-            <p className="mt-4 whitespace-pre">{user.description}</p>
           </div>
+          {user.isFollowedByUser && session?.username !== params.username ? (
+            <UnfollowButton />
+          ) : null}
+          {!user.isFollowedByUser && session?.username !== params.username ? (
+            <FollowButton />
+          ) : null}
+          {session?.username === params.username ? <EditProfileButton /> : null}
         </div>
+        <div className="mt-4 flex gap-4">
+          <Link to="followers">
+            <span className="font-semibold">{user.followerCount}</span>{" "}
+            <span className="text-gray-700">followers</span>
+          </Link>
+          <Link to="following">
+            <span className="font-semibold">{user.followingCount}</span>{" "}
+            <span className="text-gray-700">following</span>
+          </Link>
+        </div>
+        <p className="mt-4 whitespace-pre">{user.description}</p>
       </div>
       <Tab.Group>
         <Tab.List className="grid auto-cols-fr grid-flow-col">
