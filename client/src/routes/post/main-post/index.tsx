@@ -1,4 +1,5 @@
 import { useParams } from "react-router-dom";
+import { Post } from "../../../components/post";
 import { trpc } from "../../../trpc";
 import { MoreActionsButton } from "./more-actions-button";
 import { ProfileInfo } from "./profile-info";
@@ -13,32 +14,35 @@ export function MainPost() {
 
   if (!post) return null;
   return (
-    <div className="px-4 pt-4">
-      <article>
-        <div className="flex justify-between">
-          <ProfileInfo />
-          <MoreActionsButton />
+    <div className="divide-y divide-gray-300">
+      {post.replyingTo ? <Post postId={post.replyingTo.id} /> : null}
+      <div className="px-4 pt-4">
+        <article>
+          <div className="flex justify-between">
+            <ProfileInfo />
+            <MoreActionsButton />
+          </div>
+          <p className="py-4 text-lg">{post.text}</p>
+          <p className="text-gray-600">
+            {Intl.DateTimeFormat("en-us", {
+              dateStyle: "medium",
+              timeStyle: "short",
+            }).format(new Date(post.timestamp))}
+          </p>
+          <div className="h-4" />
+          <div
+            className={`border-t border-gray-300 ${
+              post.repostCount === 0 && post.starCount === 0 ? "hidden" : ""
+            }`}
+          >
+            <Stats />
+          </div>
+        </article>
+        <div className="flex h-16 items-center justify-between border-t border-gray-300">
+          <ReplyButton />
+          <RepostButton />
+          <StarButton />
         </div>
-        <p className="py-4 text-lg">{post.text}</p>
-        <p className="text-gray-600">
-          {Intl.DateTimeFormat("en-us", {
-            dateStyle: "medium",
-            timeStyle: "short",
-          }).format(new Date(post.timestamp))}
-        </p>
-        <div className="h-4" />
-        <div
-          className={`border-t border-gray-300 ${
-            post.repostCount === 0 && post.starCount === 0 ? "hidden" : ""
-          }`}
-        >
-          <Stats />
-        </div>
-      </article>
-      <div className="flex h-16 items-center justify-between border-t border-gray-300">
-        <ReplyButton />
-        <RepostButton />
-        <StarButton />
       </div>
     </div>
   );
