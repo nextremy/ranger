@@ -14,7 +14,7 @@ export function MainPost() {
 
   if (!post) return null;
   return (
-    <div className="divide-y divide-gray-300">
+    <div className="divide-y divide-gray-300 border-b border-gray-300">
       {post.replyingTo ? <Post postId={post.replyingTo.id} /> : null}
       <div className="px-4 pt-4">
         <article>
@@ -23,7 +23,7 @@ export function MainPost() {
             <MoreActionsButton />
           </div>
           {post.replyingTo ? (
-            <p className="text-sm text-gray-600 pt-2">
+            <p className="pt-2 text-sm text-gray-600">
               Replying to @{post.replyingTo.author.username}
             </p>
           ) : null}

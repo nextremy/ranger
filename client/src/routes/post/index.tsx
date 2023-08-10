@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom";
 import { trpc } from "../../trpc";
 import { MainPost } from "./main-post";
+import { RepliesList } from "./replies-list";
 
 export function PostRoute() {
   const params = useParams();
@@ -8,8 +9,9 @@ export function PostRoute() {
 
   if (!post) return null;
   return (
-    <div className="border-b border-gray-300">
+    <div className="flex flex-col">
       <MainPost />
+      <RepliesList />
     </div>
   );
 }
