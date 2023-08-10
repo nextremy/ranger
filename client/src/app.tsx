@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthRoute } from "./routes/auth";
+import { HomeRoute } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { MainRoute } from "./routes/main";
 import { PostRoute } from "./routes/post";
@@ -42,7 +43,7 @@ function Router() {
           <Route element={<RegisterRoute />} path="register" />
         </Route>
         <Route element={<MainRoute />}>
-          <Route element={<div />} index />
+          <Route element={<HomeRoute />} index />
           <Route element={<PostRoute />} path="posts/:postId" />
           <Route element={<ProfileRoute />} path="profiles/:username" />
           <Route element={<div />} path="settings" />
