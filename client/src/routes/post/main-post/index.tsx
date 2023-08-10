@@ -22,6 +22,11 @@ export function MainPost() {
             <ProfileInfo />
             <MoreActionsButton />
           </div>
+          {post.replyingTo ? (
+            <p className="text-sm text-gray-600 pt-2">
+              Replying to @{post.replyingTo.author.username}
+            </p>
+          ) : null}
           <p className="py-4 text-lg">{post.text}</p>
           <p className="text-gray-600">
             {Intl.DateTimeFormat("en-us", {

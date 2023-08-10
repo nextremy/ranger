@@ -47,6 +47,11 @@ export function Post(props: Props) {
                 {toShortTimestamp(post.timestamp)}
               </p>
             </div>
+            {post.replyingTo ? (
+              <p className="text-sm text-gray-600">
+                Replying to @{post.replyingTo.author.username}
+              </p>
+            ) : null}
             <p className="z-20 mt-1">{post.text}</p>
           </div>
         </div>
