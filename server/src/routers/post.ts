@@ -189,6 +189,61 @@ export const postRouter = router({
         starCount: post._count.stars,
       }));
     }),
+  listFeed: publicProcedure
+    .input(z.object({ cursor: z.string().optional() }))
+    .query(async ({ input, ctx }) => {
+      const posts = await ctx.db.post.findMany({
+        select: {
+          id: true,
+          timestamp: true,
+          text: true,
+          deleted: true,
+          author: { select: { id: true, username: true, displayName: true } },
+          replyingTo: {
+            select: {
+              id: true,
+              timestamp: true,
+              text: true,
+              deleted: true,
+              author: {
+                select: { id: true, username: true, displayName: true },
+              },
+              reposts: {
+                select: { userId: true },
+                where: { userId: ctx.session?.userId },
+              },
+              stars: {
+                select: { userId: true },
+                where: { userId: ctx.session?.userId },
+              },
+              _count: { select: { replies: true, reposts: true, stars: true } },
+            },
+          },
+          reposts: {
+            select: { userId: true },
+            where: { userId: ctx.session?.userId },
+          },
+          stars: {
+            select: { userId: true },
+            where: { userId: ctx.session?.userId },
+          },
+          _count: { select: { replies: true, reposts: true, stars: true } },
+        },
+        where: {
+          deleted: false,
+          author: ctx.session
+            ? { followers: { some: { id: ctx.session.userId } } }
+            : undefined,
+          replyingTo: null,
+        },
+        take: 25,
+        orderBy: { timestamp: "desc" },
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+      });
+
+      return posts;
+    }),
   repost: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(async ({ input, ctx }) => {
