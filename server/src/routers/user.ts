@@ -181,6 +181,7 @@ export const userRouter = router({
             userId: metaPost.userId,
             postId: metaPost.postId,
           },
+          isRepost: metaPost.isRepost,
           id: post.id,
           timestamp: post.timestamp,
           text: post.text,
