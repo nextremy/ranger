@@ -37,11 +37,15 @@ export function PostList(props: { includeReplies: boolean }) {
   if (!postsQuery.data) return null;
   return (
     <ul className="divide-y divide-gray-300">
-      {postsQuery.data.pages.map((page) =>
-        page.map((post, i) => (
+      {postsQuery.data.pages.map((page, i) =>
+        page.map((post, j) => (
           <li
             key={JSON.stringify(post.metaId)}
-            ref={page.length === i + 1 ? ref : null}
+            ref={
+              i === postsQuery.data.pages.length - 1 && j === page.length - 1
+                ? ref
+                : null
+            }
           >
             <Post
               postId={post.id}
