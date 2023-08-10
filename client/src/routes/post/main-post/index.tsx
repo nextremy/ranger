@@ -15,7 +15,10 @@ export function MainPost() {
   return (
     <div className="px-4 pt-4">
       <article>
-        <ProfileInfo />
+        <div className="flex justify-between">
+          <ProfileInfo />
+          <MoreActionsButton />
+        </div>
         <p className="py-4 text-lg">{post.text}</p>
         <p className="text-gray-600">
           {Intl.DateTimeFormat("en-us", {
@@ -36,7 +39,6 @@ export function MainPost() {
         <ReplyButton />
         <RepostButton />
         <StarButton />
-        <MoreActionsButton />
       </div>
     </div>
   );
