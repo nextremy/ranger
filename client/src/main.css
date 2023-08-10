@@ -9,3 +9,11 @@
   font-stretch: 75% 125%;
   font-style: normal;
 }
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+* {
+  scrollbar-width: none;
+}
