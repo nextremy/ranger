@@ -147,6 +147,28 @@ export const userRouter = router({
               author: {
                 select: { id: true, username: true, displayName: true },
               },
+              replyingTo: {
+                select: {
+                  id: true,
+                  timestamp: true,
+                  text: true,
+                  deleted: true,
+                  author: {
+                    select: { id: true, username: true, displayName: true },
+                  },
+                  reposts: {
+                    select: { userId: true },
+                    where: { userId: ctx.session?.userId },
+                  },
+                  stars: {
+                    select: { userId: true },
+                    where: { userId: ctx.session?.userId },
+                  },
+                  _count: {
+                    select: { replies: true, reposts: true, stars: true },
+                  },
+                },
+              },
               reposts: {
                 select: { userId: true },
                 where: { userId: ctx.session?.userId },
@@ -186,6 +208,19 @@ export const userRouter = router({
           timestamp: post.timestamp,
           text: post.text,
           author: post.author,
+          replyingTo: post.replyingTo
+            ? {
+                id: post.replyingTo.id,
+                timestamp: post.replyingTo.timestamp,
+                text: post.replyingTo.text,
+                author: post.replyingTo.author,
+                isRepostedByUser: post.replyingTo.reposts.length === 1,
+                isStarredByUser: post.replyingTo.stars.length === 1,
+                replyCount: post.replyingTo._count.replies,
+                repostCount: post.replyingTo._count.reposts,
+                starCount: post.replyingTo._count.stars,
+              }
+            : null,
           isRepostedByUser: post.reposts.length === 1,
           isStarredByUser: post.stars.length === 1,
           replyCount: post._count.replies,
