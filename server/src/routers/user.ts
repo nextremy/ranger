@@ -133,11 +133,31 @@ export const userRouter = router({
       })
     )
     .query(async ({ input, ctx }) => {
-      const post = await ctx.db.metaPost.findMany({
+      const metaPosts = await ctx.db.metaPost.findMany({
         select: {
           isRepost: true,
-          user: { select: { id: true, username: true, displayName: true } },
+          userId: true,
           postId: true,
+          post: {
+            select: {
+              id: true,
+              timestamp: true,
+              text: true,
+              deleted: true,
+              author: {
+                select: { id: true, username: true, displayName: true },
+              },
+              reposts: {
+                select: { userId: true },
+                where: { userId: ctx.session?.userId },
+              },
+              stars: {
+                select: { userId: true },
+                where: { userId: ctx.session?.userId },
+              },
+              _count: { select: { replies: true, reposts: true, stars: true } },
+            },
+          },
         },
         where: input.includeReplies
           ? { user: { username: input.username }, post: { deleted: false } }
@@ -153,6 +173,24 @@ export const userRouter = router({
           : undefined,
       });
 
-      return post;
+      return metaPosts.map((metaPost) => {
+        const { post } = metaPost;
+        return {
+          metaId: {
+            isRepost: metaPost.isRepost,
+            userId: metaPost.userId,
+            postId: metaPost.postId,
+          },
+          id: post.id,
+          timestamp: post.timestamp,
+          text: post.text,
+          author: post.author,
+          isRepostedByUser: post.reposts.length === 1,
+          isStarredByUser: post.stars.length === 1,
+          replyCount: post._count.replies,
+          repostCount: post._count.reposts,
+          starCount: post._count.stars,
+        };
+      });
     }),
 });
