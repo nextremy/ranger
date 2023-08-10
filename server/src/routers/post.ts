@@ -157,7 +157,7 @@ export const postRouter = router({
           },
           _count: { select: { replies: true, reposts: true, stars: true } },
         },
-        where: { replyingToId: input.postId },
+        where: { deleted: false, replyingToId: input.postId },
         take: 25,
         orderBy: { timestamp: "desc" },
         skip: input.cursor ? 1 : 0,
