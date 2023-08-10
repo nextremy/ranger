@@ -33,7 +33,7 @@ export function ReplyButton(props: { postId: string }) {
   return (
     <>
       <button
-        className="group z-20 flex items-center gap-1 text-gray-500 hover:text-green-500"
+        className="group z-20 flex items-center gap-1 text-gray-500 hover:text-green-500 pr-4"
         onClick={() => setModalOpen(true)}
         title="Reply"
       >

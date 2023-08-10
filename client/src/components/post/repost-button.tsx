@@ -33,7 +33,7 @@ export function RepostButton(props: { postId: string }) {
   if (!post) return null;
   return (
     <button
-      className={`group z-20 flex items-center gap-1 hover:text-blue-500 ${
+      className={`group z-20 flex items-center gap-1 pr-4 hover:text-blue-500 ${
         post.isRepostedByUser ? "text-blue-500" : "text-gray-500"
       }`}
       onClick={
