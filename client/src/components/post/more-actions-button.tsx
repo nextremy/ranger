@@ -1,6 +1,6 @@
 import { Menu } from "@headlessui/react";
 import {
-  EllipsisHorizontalIcon,
+  EllipsisVerticalIcon,
   LinkIcon,
   TrashIcon,
 } from "@heroicons/react/20/solid";
@@ -17,14 +17,14 @@ export function MoreActionsButton(props: { postId: string }) {
 
   if (!post) return null;
   return (
-    <Menu as="div" className="relative z-20">
+    <Menu as="div" className="relative z-30">
       <Menu.Button
         className="z-20 grid h-12 w-12 place-items-center rounded-full text-gray-500 duration-200 hover:bg-green-500/10 hover:text-green-500"
         title="More actions"
       >
-        <EllipsisHorizontalIcon className="h-5 w-5" />
+        <EllipsisVerticalIcon className="h-5 w-5" />
       </Menu.Button>
-      <Menu.Items className="absolute bottom-2 right-2 flex w-max flex-col rounded-lg border border-gray-300 bg-gray-100">
+      <Menu.Items className="absolute right-2 top-2 z-50 flex w-max flex-col rounded-lg border border-gray-300 bg-gray-100">
         <Menu.Item as="div">
           <button
             className="flex h-12 w-full items-center gap-2 px-4 duration-150 hover:bg-gray-200"
