@@ -11,7 +11,7 @@ export function Profile() {
   if (!session) return null;
   if (!user) return null;
   return (
-    <div className="px-4">
+    <div className="p-4">
       <p className="text-lg font-medium leading-tight">{user.displayName}</p>
       <p className="text-gray-600">@{user.username}</p>
       <div className="mt-2 flex gap-4">
