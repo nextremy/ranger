@@ -6,6 +6,7 @@ import { trpc } from "../../trpc";
 
 export function PostList(props: { includeReplies: boolean }) {
   const params = useParams();
+  const context = trpc.useContext();
   const userQuery = trpc.user.get.useQuery({ username: params.username! });
   const postsQuery = trpc.user.listPosts.useInfiniteQuery(
     { username: params.username!, includeReplies: props.includeReplies },
@@ -17,6 +18,14 @@ export function PostList(props: { includeReplies: boolean }) {
       },
     },
   );
+  useEffect(() => {
+    if (!postsQuery.data) return;
+    for (const page of postsQuery.data.pages) {
+      for (const post of page) {
+        context.post.get.setData({ id: post.id }, () => post);
+      }
+    }
+  }, [context, postsQuery]);
   const { ref, inView } = useInView();
   useEffect(() => {
     if (inView && postsQuery.hasNextPage) {
