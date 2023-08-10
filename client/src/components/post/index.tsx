@@ -25,7 +25,7 @@ export function Post(props: Props) {
       />
       <div className="flex grow">
         <div className="grow">
-          <div className="px-5 pt-4">
+          <div className="px-4 pt-4">
             {props.repostedByUserDisplayName ? (
               <p className="z-20 flex items-center gap-1 pb-1 text-sm font-medium text-gray-600">
                 <ArrowPathRoundedSquareIcon className="h-4 w-4" />
