@@ -9,7 +9,7 @@ import { toShortTimestamp } from "./to-short-timestamp";
 
 type Props = {
   postId: string;
-  repostedByUser?: { username: string; displayName: string };
+  repostedByUserDisplayName?: string;
 };
 
 export function Post(props: Props) {
@@ -26,10 +26,10 @@ export function Post(props: Props) {
       <div className="flex grow">
         <div className="grow">
           <div className="px-5 pt-4">
-            {props.repostedByUser ? (
+            {props.repostedByUserDisplayName ? (
               <p className="z-20 flex items-center gap-1 pb-1 text-sm font-medium text-gray-600 hover:underline">
                 <ArrowPathRoundedSquareIcon className="h-4 w-4" />
-                Reposted by {props.repostedByUser.displayName}
+                Reposted by {props.repostedByUserDisplayName}
               </p>
             ) : null}
             <div className="flex gap-1">

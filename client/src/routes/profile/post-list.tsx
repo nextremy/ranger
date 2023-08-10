@@ -28,8 +28,6 @@ export function PostList(props: { includeReplies: boolean }) {
     }
   }, [inView, postsQuery]);
 
-  console.log(postsQuery.data);
-
   if (!userQuery.data) return null;
   if (!postsQuery.data) return null;
   return (
@@ -42,7 +40,9 @@ export function PostList(props: { includeReplies: boolean }) {
           >
             <Post
               postId={post.postId}
-              repostedByUser={post.isRepost ? post.user : undefined}
+              repostedByUserDisplayName={
+                post.isRepost ? post.user.displayName : undefined
+              }
             />
           </li>
         )),
