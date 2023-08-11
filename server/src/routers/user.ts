@@ -86,6 +86,25 @@ export const userRouter = router({
         },
       });
     }),
+  listSearch: publicProcedure
+    .input(z.object({ query: z.string(), cursor: z.string().optional() }))
+    .query(async ({ input, ctx }) => {
+      const users = await ctx.db.user.findMany({
+        select: { id: true, username: true },
+        where: {
+          OR: [
+            { username: { equals: input.query } },
+            { displayName: { contains: input.query } },
+          ],
+        },
+        take: 25,
+        orderBy: [{ username: "asc" }, { displayName: "asc" }],
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+      });
+
+      return users;
+    }),
   editProfile: protectedProcedure
     .input(
       z.object({

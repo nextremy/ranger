@@ -3,6 +3,7 @@ import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
 import { useRef, useState } from "react";
 import { Form } from "../../components/form";
 import { PostSearchResults } from "./post-search";
+import { UserSearchResults } from "./user-search";
 
 export function SearchRoute() {
   const searchInputRef = useRef<HTMLInputElement>(null);
@@ -48,7 +49,9 @@ export function SearchRoute() {
           <Tab.Panel>
             <PostSearchResults searchQuery={searchQuery} />
           </Tab.Panel>
-          <Tab.Panel></Tab.Panel>
+          <Tab.Panel>
+            <UserSearchResults searchQuery={searchQuery} />
+          </Tab.Panel>
         </Tab.Panels>
       </Tab.Group>
     </>
