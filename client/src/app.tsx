@@ -10,7 +10,9 @@ import { MainRoute } from "./routes/main";
 import { PostRoute } from "./routes/post";
 import { ProfileRoute } from "./routes/profile";
 import { RegisterRoute } from "./routes/register";
+import { RepostsRoute } from "./routes/reposts";
 import { SearchRoute } from "./routes/search";
+import { StarsRoute } from "./routes/stars";
 import { trpc } from "./trpc";
 
 const queryClient = new QueryClient();
@@ -49,6 +51,8 @@ function Router() {
           <Route element={<HomeRoute />} index />
           <Route element={<SearchRoute />} path="search" />
           <Route element={<PostRoute />} path="posts/:postId" />
+          <Route element={<RepostsRoute />} path="posts/:postId/reposts" />
+          <Route element={<StarsRoute />} path="posts/:postId/stars" />
           <Route element={<ProfileRoute />} path="profiles/:username" />
           <Route
             element={<FollowersRoute />}

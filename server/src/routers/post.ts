@@ -297,6 +297,32 @@ export const postRouter = router({
 
       return posts;
     }),
+  listReposts: publicProcedure
+    .input(
+      z.object({
+        postId: z.string(),
+        cursor: z.object({ userId: z.string(), postId: z.string() }).optional(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const reposts = await ctx.db.repost.findMany({
+        select: {
+          user: { select: { id: true, username: true } },
+          postId: true,
+        },
+        where: { postId: input.postId },
+        take: 25,
+        orderBy: { timestamp: "desc" },
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { userId_postId: input.cursor } : undefined,
+      });
+
+      return reposts.map((repost) => ({
+        id: repost.user.id,
+        username: repost.user.username,
+        cursor: { userId: repost.user.id, postId: repost.postId },
+      }));
+    }),
   repost: protectedProcedure
     .input(z.object({ postId: z.string() }))
     .mutation(async ({ input, ctx }) => {
@@ -332,6 +358,32 @@ export const postRouter = router({
           },
         }),
       ]);
+    }),
+  listStars: publicProcedure
+    .input(
+      z.object({
+        postId: z.string(),
+        cursor: z.object({ userId: z.string(), postId: z.string() }).optional(),
+      })
+    )
+    .query(async ({ input, ctx }) => {
+      const stars = await ctx.db.star.findMany({
+        select: {
+          user: { select: { id: true, username: true } },
+          postId: true,
+        },
+        where: { postId: input.postId },
+        take: 25,
+        orderBy: { timestamp: "desc" },
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { userId_postId: input.cursor } : undefined,
+      });
+
+      return stars.map((star) => ({
+        id: star.user.id,
+        username: star.user.username,
+        cursor: { userId: star.user.id, postId: star.postId },
+      }));
     }),
   star: protectedProcedure
     .input(z.object({ postId: z.string() }))

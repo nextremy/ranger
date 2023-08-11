@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { trpc } from "../../../trpc";
 
 export function Stats() {
@@ -8,14 +8,20 @@ export function Stats() {
   if (!post) return null;
   return (
     <div className="flex h-14 items-center gap-4">
-      <p className={`${post.repostCount === 0 ? "hidden" : ""}`}>
+      <Link
+        className={`${post.repostCount === 0 ? "hidden" : ""}`}
+        to={`/posts/${post.id}/reposts`}
+      >
         <span className="font-semibold">{post.repostCount}</span>{" "}
         {post.repostCount === 1 ? "repost" : "reposts"}
-      </p>
-      <p className={`${post.starCount === 0 ? "hidden" : ""}`}>
+      </Link>
+      <Link
+        className={`${post.starCount === 0 ? "hidden" : ""}`}
+        to={`/posts/${post.id}/stars`}
+      >
         <span className="font-semibold">{post.starCount}</span>{" "}
         {post.starCount === 1 ? "star" : "stars"}
-      </p>
+      </Link>
     </div>
   );
 }
