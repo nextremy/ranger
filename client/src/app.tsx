@@ -12,6 +12,7 @@ import { ProfileRoute } from "./routes/profile";
 import { RegisterRoute } from "./routes/register";
 import { RepostsRoute } from "./routes/reposts";
 import { SearchRoute } from "./routes/search";
+import { SettingsRoute } from "./routes/settings";
 import { StarsRoute } from "./routes/stars";
 import { trpc } from "./trpc";
 
@@ -62,7 +63,7 @@ function Router() {
             element={<FollowingRoute />}
             path="profiles/:username/following"
           />
-          <Route element={<div />} path="settings" />
+          <Route element={<SettingsRoute />} path="settings" />
         </Route>
       </Routes>
     </BrowserRouter>
