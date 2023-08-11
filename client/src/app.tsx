@@ -8,6 +8,7 @@ import { MainRoute } from "./routes/main";
 import { PostRoute } from "./routes/post";
 import { ProfileRoute } from "./routes/profile";
 import { RegisterRoute } from "./routes/register";
+import { SearchRoute } from "./routes/search";
 import { trpc } from "./trpc";
 
 const queryClient = new QueryClient();
@@ -44,6 +45,7 @@ function Router() {
         </Route>
         <Route element={<MainRoute />}>
           <Route element={<HomeRoute />} index />
+          <Route element={<SearchRoute />} path="search" />
           <Route element={<PostRoute />} path="posts/:postId" />
           <Route element={<ProfileRoute />} path="profiles/:username" />
           <Route element={<div />} path="settings" />

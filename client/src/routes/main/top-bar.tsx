@@ -22,6 +22,7 @@ export function TopBar() {
         <h1 className="text-lg font-bold">
           {pathname === "/" ? "Home" : ""}
           {pathname.startsWith("/posts") ? "Post" : ""}
+          {pathname.startsWith("/search") ? "Search" : ""}
           {pathname.startsWith("/profiles") ? "Profile" : ""}
           {pathname === "/settings" ? "Settings" : ""}
         </h1>
