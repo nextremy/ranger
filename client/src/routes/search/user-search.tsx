@@ -31,7 +31,7 @@ export function UserSearchResults(props: Props) {
     return <p className="p-4 text-center text-gray-500">No users found</p>;
   }
   return (
-    <ul>
+    <ul className="divide-y divide-gray-300">
       {usersQuery.data.pages.map((page, pageIndex) =>
         page.map((user, userIndex) => (
           <li

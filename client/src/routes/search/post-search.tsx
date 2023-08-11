@@ -31,7 +31,7 @@ export function PostSearchResults(props: Props) {
     return <p className="p-4 text-center text-gray-500">No posts found</p>;
   }
   return (
-    <ul>
+    <ul className="divide-y divide-gray-300">
       {postsQuery.data.pages.map((page, pageIndex) =>
         page.map((post, postIndex) => (
           <li
