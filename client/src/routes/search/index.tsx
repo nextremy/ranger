@@ -19,7 +19,7 @@ export function SearchRoute() {
       >
         <Form.TextInput
           className="grow"
-          placeholder="Search for users or posts"
+          placeholder="Search for posts or users"
           ref={searchInputRef}
           roundedFull
         />
