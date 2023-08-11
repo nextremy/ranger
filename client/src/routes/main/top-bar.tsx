@@ -5,14 +5,15 @@ import { SidebarButton } from "./sidebar-button";
 export function TopBar() {
   const { pathname } = useLocation();
 
+  const showSidebarButton = pathname === "/" || pathname === "/search";
   return (
     <>
       <div
         className={`absolute inset-0 z-50 flex h-16 items-center gap-2 border-b border-gray-300 bg-gray-100 px-2 ${
-          pathname === "/" ? "md:px-4" : ""
+          showSidebarButton ? "md:px-4" : ""
         }`}
       >
-        {pathname === "/" ? (
+        {showSidebarButton ? (
           <div className="md:hidden">
             <SidebarButton />
           </div>
