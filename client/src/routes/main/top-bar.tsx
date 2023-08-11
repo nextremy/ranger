@@ -8,7 +8,7 @@ export function TopBar() {
   return (
     <>
       <div
-        className={`fixed z-50 flex h-16 w-full items-center gap-2 border-b border-gray-300 bg-gray-100 px-2 ${
+        className={`absolute inset-0 z-50 flex h-16 items-center gap-2 border-b border-gray-300 bg-gray-100 px-2 ${
           pathname === "/" ? "md:px-4" : ""
         }`}
       >

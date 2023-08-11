@@ -8,7 +8,7 @@ export function MainRoute() {
       <div className="hidden w-full max-w-xs md:block">
         <Sidebar />
       </div>
-      <div className="h-full grow overflow-y-scroll border-x border-gray-300">
+      <div className="relative h-full grow overflow-y-scroll border-x border-gray-300">
         <TopBar />
         <Outlet />
       </div>
