@@ -59,7 +59,7 @@ export function Post(props: Props) {
           <MoreActionsButton postId={post.id} />
         </div>
       </div>
-      <div className="flex items-center justify-between p-2">
+      <div className="flex items-center justify-between px-2 pb-2 pt-1">
         <ReplyButton postId={post.id} />
         <RepostButton postId={post.id} />
         <StarButton postId={post.id} />
