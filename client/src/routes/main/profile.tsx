@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useSession } from "../../hooks/use-session";
 import { trpc } from "../../trpc";
 
@@ -15,14 +16,14 @@ export function Profile() {
       <p className="text-lg font-medium leading-tight">{user.displayName}</p>
       <p className="text-gray-600">@{user.username}</p>
       <div className="mt-2 flex gap-4">
-        <p>
+        <Link to={`/profiles/${user.username}/followers`}>
           <span className="font-semibold">{user.followerCount}</span>{" "}
           <span className="text-gray-600">followers</span>
-        </p>
-        <p>
+        </Link>
+        <Link to={`/profiles/${user.username}/following`}>
           <span className="font-semibold">{user.followingCount}</span>{" "}
           <span className="text-gray-600">following</span>
-        </p>
+        </Link>
       </div>
     </div>
   );

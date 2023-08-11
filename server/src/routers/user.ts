@@ -121,6 +121,34 @@ export const userRouter = router({
         where: { id: ctx.session.userId },
       });
     }),
+  listFollowers: publicProcedure
+    .input(z.object({ username: z.string(), cursor: z.string().optional() }))
+    .query(async ({ input, ctx }) => {
+      const users = await ctx.db.user.findMany({
+        select: { id: true, username: true },
+        where: { following: { some: { username: input.username } } },
+        take: 25,
+        orderBy: [{ username: "asc" }],
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+      });
+
+      return users;
+    }),
+  listFollowing: publicProcedure
+    .input(z.object({ username: z.string(), cursor: z.string().optional() }))
+    .query(async ({ input, ctx }) => {
+      const users = await ctx.db.user.findMany({
+        select: { id: true, username: true },
+        where: { followers: { some: { username: input.username } } },
+        take: 25,
+        orderBy: [{ username: "asc" }],
+        skip: input.cursor ? 1 : 0,
+        cursor: input.cursor ? { id: input.cursor } : undefined,
+      });
+
+      return users;
+    }),
   follow: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .mutation(async ({ input, ctx }) => {

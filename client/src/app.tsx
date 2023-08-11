@@ -2,6 +2,8 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { httpBatchLink } from "@trpc/client";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { AuthRoute } from "./routes/auth";
+import { FollowersRoute } from "./routes/followers";
+import { FollowingRoute } from "./routes/following";
 import { HomeRoute } from "./routes/home";
 import { LoginRoute } from "./routes/login";
 import { MainRoute } from "./routes/main";
@@ -48,6 +50,14 @@ function Router() {
           <Route element={<SearchRoute />} path="search" />
           <Route element={<PostRoute />} path="posts/:postId" />
           <Route element={<ProfileRoute />} path="profiles/:username" />
+          <Route
+            element={<FollowersRoute />}
+            path="profiles/:username/followers"
+          />
+          <Route
+            element={<FollowingRoute />}
+            path="profiles/:username/following"
+          />
           <Route element={<div />} path="settings" />
         </Route>
       </Routes>
