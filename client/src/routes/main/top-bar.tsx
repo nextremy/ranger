@@ -20,11 +20,36 @@ export function TopBar() {
           <BackButton />
         )}
         <h1 className="text-lg font-bold">
-          {pathname === "/" ? "Home" : ""}
-          {pathname.startsWith("/posts") ? "Post" : ""}
-          {pathname.startsWith("/search") ? "Search" : ""}
-          {pathname.startsWith("/profiles") ? "Profile" : ""}
-          {pathname === "/settings" ? "Settings" : ""}
+          {(() => {
+            if (pathname === "/") {
+              return "Home";
+            }
+            if (pathname.startsWith("/posts")) {
+              if (pathname.endsWith("/reposts")) {
+                return "Reposts";
+              }
+              if (pathname.endsWith("/stars")) {
+                return "Stars";
+              }
+              return "Post";
+            }
+            if (pathname === "/search") {
+              return "Search";
+            }
+            if (pathname.startsWith("/profiles")) {
+              if (pathname.endsWith("/followers")) {
+                return "Followers";
+              }
+              if (pathname.endsWith("/following")) {
+                return "Following";
+              }
+              return "Profile";
+            }
+            if (pathname === "/settings") {
+              return "Settings";
+            }
+            return null;
+          })()}
         </h1>
       </div>
       <div className="h-16" />
