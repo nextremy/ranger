@@ -24,8 +24,8 @@ Users can do the following:
 
 | Desktop view |
 | - |
-| ![localhost_5173_](https://github.com/nextremy/ranger/assets/99709675/dc1daf00-de94-4605-9d1f-48ab3d711d8f) |
+| ![Screenshot of desktop view of Ranger's Home screen](https://github.com/nextremy/ranger/assets/99709675/74774d98-d643-4ae8-a2af-a51fd9294ac4) |
 
 | Mobile view 1 | Mobile view 2 |
 | - | - |
-| ![Screenshot of a mobile view of Ranger's Home screen](https://github.com/nextremy/ranger/assets/99709675/3bc29d3c-b481-4a9b-9453-a4ecbd3745d7)  | ![Screenshot of a mobile view of Ranger's drawer menu](https://github.com/nextremy/ranger/assets/99709675/0ce54196-9cf0-4052-b4da-354779c38561) |
+| ![Screenshot of a mobile view of Ranger's Home screen](https://github.com/nextremy/ranger/assets/99709675/3bc29d3c-b481-4a9b-9453-a4ecbd3745d7)  | ![Screenshot of a mobile view of Ranger's drawer menu](https://github.com/nextremy/ranger/assets/99709675/99d65f45-bd14-4aba-a451-744bac6ffdc9) |
